@@ -17,6 +17,7 @@ install: ## Installation du projet
 	make prepare env=test db-user=$(db-user) db-password=$(db-password) db-name=$(db-name) db-host=$(db-host) db-port=$(db-port) db-version=$(db-version) db-charset=$(db-charset)
 	make db env=dev
 	make db env=test
+	yarn run dev
 .PHONY: install
 
 prepare: ## Préparation du projet
