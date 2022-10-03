@@ -3,6 +3,8 @@
 $finder = (new PhpCsFixer\Finder())
     ->in(__DIR__)
     ->exclude('var')
+    ->exclude('node_modules')
+    ->exclude('assets')
 ;
 
 return (new PhpCsFixer\Config())
