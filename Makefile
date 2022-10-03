@@ -133,6 +133,8 @@ fix-stylelint: ## Correction automatique des erreurs de code avec StyleLint
 
 fix: ## Correction automatique des erreurs de code
 	make fix-cs-fixer
+	make fix-eslint
+	make fix-stylelint
 .PHONY: fix
 
 help: ## Show this help.
