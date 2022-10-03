@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="555px" preserveAspectRatio="none" style="width:505px;height:555px;background:#FFFFFF;" version="1.1" viewBox="0 0 505 555" width="505px" zoomAndPan="magnify"><defs/><g><!--MD5=[35544a71311bcbe85ce69ffeee3e9183]
+cluster Figures--><g id="cluster_Figures"><rect fill="none" height="517" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="270" x="114" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="60" x="219" y="21.9951">Figures</text></g><g id="elem_Ajouter une figure"><ellipse cx="248.9263" cy="69.7853" fill="#F1F1F1" rx="84.4263" ry="19.2853" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129" x="184.305" y="72.6739">Ajouter une figure</text></g><g id="elem_Supprimer une figure"><ellipse cx="249.0638" cy="145.8128" fill="#F1F1F1" rx="94.5638" ry="21.3128" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="152" x="173.0638" y="148.6594">Supprimer une figure</text></g><g id="elem_Modifier une figure"><ellipse cx="249.0368" cy="222.8074" fill="#F1F1F1" rx="87.0368" ry="19.8074" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="135" x="181.5368" y="225.654">Modifier une figure</text></g><g id="elem_Commenter une figure"><ellipse cx="249.0673" cy="300.2135" fill="#F1F1F1" rx="99.0673" ry="22.2135" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="162" x="168.0673" y="303.0601">Commenter une figure</text></g><g id="elem_Afficher une figure"><ellipse cx="249.1635" cy="377.1327" fill="#F1F1F1" rx="86.1635" ry="19.6327" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="133" x="182.6635" y="379.9794">Afficher une figure</text></g><g id="elem_Afficher la liste des figures"><ellipse cx="248.9811" cy="456.0962" fill="#F1F1F1" rx="110.9811" ry="24.5962" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="188" x="154.9811" y="458.9429">Afficher la liste des figures</text></g><!--MD5=[db8075859b8dc6afee89c0188a9ca649]
+entity Utilisateur--><g id="elem_Utilisateur"><ellipse cx="42" cy="193.5" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M42,201.5 L42,228.5 M29,209.5 L55,209.5 M42,228.5 L29,243.5 M42,228.5 L55,243.5 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="72" x="6" y="257.9951">Utilisateur</text></g><!--MD5=[bdd6754a6858f1003b48474cbb8dbf7f]
+entity Visiteur--><g id="elem_Visiteur"><ellipse cx="42" cy="347.5" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M42,355.5 L42,382.5 M29,363.5 L55,363.5 M42,382.5 L29,397.5 M42,382.5 L55,397.5 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="54" x="15" y="411.9951">Visiteur</text></g><!--MD5=[993e0d4fdeccee87e9dafe04241cdfbd]
+entity MySQL--><g id="elem_MySQL"><path d="M420,503.5 C420,493.5 454,493.5 454,493.5 C454,493.5 488,493.5 488,503.5 L488,528.7969 C488,538.7969 454,538.7969 454,538.7969 C454,538.7969 420,538.7969 420,528.7969 L420,503.5 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><path d="M420,503.5 C420,513.5 454,513.5 454,513.5 C454,513.5 488,513.5 488,503.5 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48" x="430" y="530.4951">MySQL</text></g><!--MD5=[c3c1700d6db0230f7585631d96a0eb68]
+link Utilisateur to Visiteur--><g id="link_Utilisateur_Visiteur"><path d="M42,261.45 C42,280.49 42,299.52 42,318.56 " fill="none" id="Utilisateur-to-Visiteur" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="49,318.8,42,338.8,35,318.8,49,318.8" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[32e0d24f92266205705af64ea95adabe]
+link Utilisateur to Ajouter une figure--><g id="link_Utilisateur_Ajouter une figure"><path d="M51.93,184.74 C59.85,159.11 74.01,126.6 98,107 C117.94,90.71 144.02,81.43 168.83,76.2 " fill="none" id="Utilisateur-Ajouter une figure" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[dd5ec7035d31b02ae230485a86443c53]
+link Utilisateur to Supprimer une figure--><g id="link_Utilisateur_Supprimer une figure"><path d="M78.01,196.16 C84.43,192.01 91.25,188.09 98,185 C122.22,173.91 150.14,165.56 175.28,159.5 " fill="none" id="Utilisateur-Supprimer une figure" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[6c885fa60af34c54bb62e7b545b74f36]
+link Utilisateur to Modifier une figure--><g id="link_Utilisateur_Modifier une figure"><path d="M78.24,223 C101.25,223 132.36,223 161.66,223 " fill="none" id="Utilisateur-Modifier une figure" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[651c47e8f6609af81b83fa65b570da72]
+link Utilisateur to Commenter une figure--><g id="link_Utilisateur_Commenter une figure"><path d="M78.09,249.08 C84.5,253.12 91.29,256.95 98,260 C121.93,270.87 149.38,279.26 174.21,285.49 " fill="none" id="Utilisateur-Commenter une figure" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[9fa86915d868b07a0ededc0ed9e42aa7]
+link Visiteur to Afficher une figure--><g id="link_Visiteur_Afficher une figure"><path d="M69.38,377 C93.06,377 129.17,377 162.73,377 " fill="none" id="Visiteur-Afficher une figure" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[4bd61e1a7ce7a42ecba48f4449498004]
+link Visiteur to Afficher la liste des figures--><g id="link_Visiteur_Afficher la liste des figures"><path d="M69.12,397.06 C77.94,403.14 88.07,409.42 98,414 C120.22,424.26 145.48,432.52 168.84,438.9 " fill="none" id="Visiteur-Afficher la liste des figures" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[ddcb885a82eea81e7453965a5ea4bf16]
+link Figures to MySQL--><g id="link_Figures_MySQL"><path d="M384.3586,516 C384.6256,516 384.8922,516 385.1585,516 C387.2887,516 389.3965,516 391.4777,516 C399.8023,516 407.7,516 414.89,516 " fill="none" id="Figures-to-MySQL" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="419.97,516,410.97,512,414.97,516,410.97,520,419.97,516" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[2dfbc9e861462764b804c4b4fa5708d3]
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle
+actor Utilisateur
+actor Visiteur
+database MySQL
+
+Utilisateur -|> Visiteur
+
+rectangle Figures {
+    Utilisateur - - (Ajouter une figure)
+    Utilisateur - - (Supprimer une figure)
+    Utilisateur - - (Modifier une figure)
+    Utilisateur - - (Commenter une figure)
+    Visiteur - - (Afficher une figure)
+    Visiteur - - (Afficher la liste des figures)
+}
+
+Figures ..> MySQL
+
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 19:01:30 CEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: fr
+Country: FR
+--></g></svg>

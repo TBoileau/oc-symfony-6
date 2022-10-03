@@ -1,0 +1,18 @@
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle
+actor Utilisateur
+database MySQL
+cloud Mailer
+rectangle Securité {
+    Utilisateur -- (Se connecter)
+    (Se connecter) -- MySQL
+    Utilisateur -- (S'inscrire)
+    (S'inscrire) -- MySQL
+    (Réinitialiser le\nmot de passe) .> (Se connecter) : extends
+    (Réinitialiser le\nmot de passe) -- Mailer
+    (S'inscrire) -- Mailer
+}
+
+@enduml
