@@ -41,7 +41,7 @@ jobs:
       - name: Symfony CLI
         run: |
           curl -sS https://get.symfony.com/cli/installer | bash
-          mv /home/runner/.symfony/bin/symfony /usr/local/bin/symfony
+          mv /home/runner/.symfony5/bin/symfony /usr/local/bin/symfony
       - name: Install
         run: make install env=test db-password=Password123!
       - name: Quality assurance
