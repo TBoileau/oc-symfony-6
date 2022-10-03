@@ -10,14 +10,24 @@ db-name ?= oc-symfony-6
 db-version ?= 8.0
 db-charset ?= utf8mb4
 
-install: ## Installation du projet
+composer: ## Installation des dépendances de composer.json
 	composer install
+
+yarn: ## Installation des dépendances de package.json
 	yarn install
+
+yarn-dev: ## Build des assets pour l'environnement de développement
+	yarn run dev
+
+yarn-build: ## Build des assets pour l'environnement de production
+	yarn run build
+
+install: ## Installation du projet
+	make composer
+	make yarn
 	make prepare env=dev db-user=$(db-user) db-password=$(db-password) db-name=$(db-name) db-host=$(db-host) db-port=$(db-port) db-version=$(db-version) db-charset=$(db-charset)
 	make prepare env=test db-user=$(db-user) db-password=$(db-password) db-name=$(db-name) db-host=$(db-host) db-port=$(db-port) db-version=$(db-version) db-charset=$(db-charset)
-	make db env=dev
-	make db env=test
-	yarn run dev
+	make yarn-dev
 .PHONY: install
 
 prepare: ## Préparation du projet

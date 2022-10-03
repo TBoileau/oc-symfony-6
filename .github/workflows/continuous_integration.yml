@@ -42,8 +42,14 @@ jobs:
         run: |
           curl -sS https://get.symfony.com/cli/installer | bash
           mv /home/runner/.symfony5/bin/symfony /usr/local/bin/symfony
-      - name: Install
-        run: make install env=test db-password=Password123!
+      - name: Build
+        run: |
+          make composer
+          make yarn
+      - name: Prepare
+        run: make prepare env=test db-password=Password123!
+      - name: Assets
+        run: make yarn-dev
       - name: Quality assurance
         run: make qa
       - name: Tests
