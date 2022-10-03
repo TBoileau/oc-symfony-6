@@ -96,6 +96,14 @@ qa-phpcpd: ## Analyse du code avec PHPCPD
 	$(DISABLE_XDEBUG) php vendor/bin/phpcpd src
 .PHONY: qa-phpcpd
 
+qa-eslint: ## Analyse du code avec ESLint
+	yarn eslint assets
+.PHONY: qa-eslint
+
+qa-stylelint: ## Analyse du code avec StyleLint
+	yarn stylelint assets/**/*.scss
+.PHONY: qa-stylelint
+
 qa: ## Analyse du code
 	make qa-composer
 	make qa-doctrine
@@ -107,11 +115,21 @@ qa: ## Analyse du code
 	make qa-phpcpd
 	make qa-cs-fixer
 	make qa-phpstan
+	make qa-eslint
+	make qa-stylelint
 .PHONY: qa
 
 fix-cs-fixer: ## Correction automatique des erreurs de code avec PHP-CS-Fixer
 	$(DISABLE_XDEBUG) php vendor/bin/php-cs-fixer fix
 .PHONY: fix-cs-fixer
+
+fix-eslint: ## Correction automatique des erreurs de code avec ESLint
+	yarn eslint assets --fix
+.PHONY: fix-cs-fixer
+
+fix-stylelint: ## Correction automatique des erreurs de code avec StyleLint
+	yarn stylelint assets/**/*.scss --fix
+.PHONY: fix-stylelint
 
 fix: ## Correction automatique des erreurs de code
 	make fix-cs-fixer

@@ -1,4 +1,10 @@
 {
+    "name": "oc-symfony-6",
+    "description": "OpenClassrooms - Développeur d'applications - PHP/Symfony - Projet 6",
+    "repository": "git@github.com:TBoileau/oc-symfony-6.git",
+    "author": "TBoileau <t-boileau@email.com>",
+    "license": "MIT",
+    "private": false,
     "devDependencies": {
         "@babel/core": "^7.17.0",
         "@babel/preset-env": "^7.16.0",
@@ -6,17 +12,23 @@
         "@symfony/stimulus-bridge": "^3.2.0",
         "@symfony/webpack-encore": "^4.0.0",
         "core-js": "^3.23.0",
+        "eslint": ">=5.16.0",
+        "eslint-config-google": "^0.14.0",
         "regenerator-runtime": "^0.13.9",
+        "sass": "^1.55.0",
+        "sass-loader": "^13.0.0",
+        "stylelint": "^14.13.0",
+        "stylelint-config-prettier-scss": "^0.0.1",
+        "stylelint-config-standard-scss": "^5.0.0",
         "webpack": "^5.74.0",
         "webpack-cli": "^4.10.0",
         "webpack-notifier": "^1.15.0"
     },
-    "license": "UNLICENSED",
-    "private": true,
     "scripts": {
         "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
-    }
+    },
+    "dependencies": {}
 }

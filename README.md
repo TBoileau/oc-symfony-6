@@ -100,6 +100,8 @@ Cette commande va lancer un ensemble de vérifications sur le code, mais vous po
 * `make qa-phpcpd` : Analyse du code avec PHPCPD
 * `make qa-phpmd` : Analyse du code avec PHPMD
 * `make qa-phpcs-fixer` : Analyse du code avec PHP-CS-Fixer
+* `make qa-eslint` : Analyse du code avec ESLint
+* `make qa-stylelint` : Analyse du code avec Stylelint
 
 ### Corriger automatiquement des erreurs
 ```
@@ -108,6 +110,8 @@ make fix
 
 Cette commande utilise un ensemble d'outils pour corriger le code, mais vous pouvez tout à fait les éxecuter indivuellement :
 * `make fix-cs-fixer` : Corrige le code avec PHP-CS-Fixer
+* `make fix-eslint` : Corrige le code avec ESLint
+* `make fix-stylelint` : Corrige le code avec Stylelint
 
 ## Documentation
 La documentation est disponible [ici](https://tboileau.github.io/oc-symfony-6/).
