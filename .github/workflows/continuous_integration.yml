@@ -38,6 +38,10 @@ jobs:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
+      - name: Symfony CLI
+        run: |
+          curl -sS https://get.symfony.com/cli/installer | bash
+          mv /home/runner/.symfony/bin/symfony /usr/local/bin/symfony
       - name: Install
         run: make install env=test db-password=Password123!
       - name: Quality assurance
