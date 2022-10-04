@@ -49,7 +49,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Column(unique: true)]
     private string $nickname;
 
-    #[Column(nullable: true)]
+    #[Column(type: 'uuid', nullable: true)]
     private ?Uuid $registrationToken = null;
 
     public function getId(): ?int
@@ -138,5 +138,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRegistrationToken(?Uuid $registrationToken): void
     {
         $this->registrationToken = $registrationToken;
+    }
+
+    public function hasValidatedRegistration(): bool
+    {
+        return null === $this->registrationToken;
     }
 }

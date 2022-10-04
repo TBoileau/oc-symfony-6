@@ -8,6 +8,7 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Uid\Uuid;
 
 use function sprintf;
 
@@ -23,6 +24,10 @@ final class UserFixtures extends Fixture
             $user = (new User())
                 ->setEmail(sprintf('user+%d@email.com', $i))
                 ->setNickname(sprintf('user+%d', $i));
+
+            if ($i > 5) {
+                $user->setRegistrationToken(Uuid::v4());
+            }
 
             $manager->persist(
                 $user->setPassword(
