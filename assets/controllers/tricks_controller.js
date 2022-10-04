@@ -36,6 +36,20 @@ export default class extends Controller {
   data = {_links: {next: {href: '/api/tricks'}}};
 
   /**
+   * @type {boolean}
+   */
+  deleteTrickByOwnerOnly = parseInt(
+      this.element.dataset.deleteTrickByOwnerOnly,
+  ) === 1;
+
+  /**
+   * @type {number|null}
+   */
+  userId = this.element.dataset.userId !== null ?
+    parseInt(this.element.dataset.userId) :
+    null;
+
+  /**
    * Connect
    */
   connect() {
@@ -60,10 +74,22 @@ export default class extends Controller {
   load() {
     this.data._embedded.tricks.forEach((trick) => {
       const trickElement = document.createElement('div');
-      const linkElement = document.createElement('a');
-      linkElement.innerHTML = trick.name;
-      linkElement.href = `/${trick.slug}`;
-      trickElement.appendChild(linkElement);
+
+      const showElement = document.createElement('a');
+      showElement.innerHTML = trick.name;
+      showElement.href = `/${trick.slug}`;
+      trickElement.appendChild(showElement);
+
+      if (
+        this.userId !== null &&
+        (!this.deleteTrickByOwnerOnly || this.userId === trick.user.id)
+      ) {
+        const deleteElement = document.createElement('a');
+        deleteElement.innerHTML = 'Supprimer';
+        deleteElement.href = `/${trick.slug}/delete`;
+        trickElement.appendChild(deleteElement);
+      }
+
       this.listTarget.appendChild(trickElement);
     });
 

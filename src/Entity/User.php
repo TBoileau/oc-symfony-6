@@ -28,6 +28,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Id]
     #[GeneratedValue]
     #[Column]
+    #[Groups(['trick:read'])]
     private ?int $id = null;
 
     #[NotBlank]

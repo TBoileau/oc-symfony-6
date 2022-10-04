@@ -8,7 +8,10 @@ use App\Entity\Comment;
 use App\Entity\Trick;
 use App\Entity\User;
 use App\Form\CommentType;
+use App\Security\Voter\TrickVoter;
 use App\UseCase\Trick\CommentTrickInterface;
+use App\UseCase\Trick\DeleteInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,6 +24,23 @@ final class TrickController extends AbstractController
     public function list(): Response
     {
         return $this->render('trick/list.html.twig');
+    }
+
+    #[Route('/{slug}/delete', name: 'delete', methods: [Request::METHOD_GET, Request::METHOD_POST])]
+    #[IsGranted(TrickVoter::DELETE, subject: 'trick')]
+    public function delete(Trick $trick, Request $request, DeleteInterface $delete): Response
+    {
+        $form = $this->createFormBuilder()->getForm()->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $delete($trick);
+
+            $this->addFlash('success', 'La figure a été supprimée avec succès.');
+
+            return $this->redirectToRoute('trick_list');
+        }
+
+        return $this->renderForm('trick/delete.html.twig', ['form' => $form, 'trick' => $trick]);
     }
 
     #[Route('/{slug}', name: 'show', methods: [Request::METHOD_GET, Request::METHOD_POST])]
