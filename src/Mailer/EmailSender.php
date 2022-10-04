@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Mailer;
 
 use App\Mailer\Email\EmailInterface;
+use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
@@ -19,16 +20,16 @@ final class EmailSender implements EmailSenderInterface
     private array $options = [];
 
     public function __construct(
-        private MailerInterface $mailer,
-        private string $sender,
-        private ContainerInterface $container
+        private readonly MailerInterface $mailer,
+        private readonly string $sender,
+        private readonly ContainerInterface $container
     ) {
     }
 
     public function with(string $name, mixed $value): EmailSenderInterface
     {
         if (isset($this->options[$name])) {
-            throw new \InvalidArgumentException(sprintf('Option "%s" is already set.', $name)); // @codeCoverageIgnore
+            throw new InvalidArgumentException(sprintf('Option "%s" is already set.', $name)); // @codeCoverageIgnore
         }
 
         $this->options[$name] = $value;
@@ -39,7 +40,7 @@ final class EmailSender implements EmailSenderInterface
     public function send(string $emailClass): void
     {
         if (!$this->container->has($emailClass)) {
-            throw new \InvalidArgumentException(sprintf('Email "%s" must implement EmailInterface.', $emailClass)); // @codeCoverageIgnore
+            throw new InvalidArgumentException(sprintf('Email "%s" must implement EmailInterface.', $emailClass)); // @codeCoverageIgnore
         }
 
         /** @var EmailInterface $email */

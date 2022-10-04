@@ -8,11 +8,11 @@ use App\Doctrine\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-final class EditPassword implements EditPasswordInterface
+final class UpdatePassword implements UpdatePasswordInterface
 {
     public function __construct(
-        private EntityManagerInterface $entityManager,
-        private UserPasswordHasherInterface $userPasswordHasher
+        private readonly EntityManagerInterface $entityManager,
+        private readonly UserPasswordHasherInterface $userPasswordHasher
     ) {
     }
 
@@ -23,7 +23,6 @@ final class EditPassword implements EditPasswordInterface
 
         $user->setPassword($this->userPasswordHasher->hashPassword($user, $plainPassword));
 
-        $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
 }

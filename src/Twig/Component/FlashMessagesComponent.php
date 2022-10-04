@@ -15,7 +15,7 @@ final class FlashMessagesComponent
 {
     use DefaultActionTrait;
 
-    private FlashBagInterface $flashBag;
+    private readonly FlashBagInterface $flashBag;
 
     public function __construct(RequestStack $requestStack)
     {

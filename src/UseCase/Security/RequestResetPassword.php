@@ -13,8 +13,8 @@ use Symfony\Component\Uid\Uuid;
 final class RequestResetPassword implements RequestResetPasswordInterface
 {
     public function __construct(
-        private EntityManagerInterface $entityManager,
-        private EmailSenderInterface $emailSender
+        private readonly EntityManagerInterface $entityManager,
+        private readonly EmailSenderInterface $emailSender
     ) {
     }
 

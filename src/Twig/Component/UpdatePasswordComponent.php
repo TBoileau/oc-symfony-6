@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Twig\Component;
 
 use App\Doctrine\Entity\User;
-use App\Form\EditPasswordType;
+use App\Form\UpdatePasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
@@ -13,8 +13,8 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
-#[AsLiveComponent('edit_password')]
-final class EditPasswordComponent extends AbstractController
+#[AsLiveComponent('update_password')]
+final class UpdatePasswordComponent extends AbstractController
 {
     use DefaultActionTrait;
     use ComponentWithFormTrait;
@@ -24,6 +24,6 @@ final class EditPasswordComponent extends AbstractController
 
     protected function instantiateForm(): FormInterface
     {
-        return $this->createForm(EditPasswordType::class, $this->user);
+        return $this->createForm(UpdatePasswordType::class, $this->user);
     }
 }

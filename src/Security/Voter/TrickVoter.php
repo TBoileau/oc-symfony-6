@@ -13,7 +13,7 @@ final class TrickVoter extends Voter
 {
     public const DELETE = 'delete';
 
-    public function __construct(private bool $deleteTrickByOwnerOnly)
+    public function __construct(private readonly bool $deleteTrickByOwnerOnly)
     {
     }
 

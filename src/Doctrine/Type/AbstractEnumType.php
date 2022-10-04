@@ -7,6 +7,7 @@ namespace App\Doctrine\Type;
 use BackedEnum;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
+use LogicException;
 
 use function enum_exists;
 use function is_int;
@@ -36,7 +37,7 @@ abstract class AbstractEnumType extends Type
     public function convertToPHPValue($value, AbstractPlatform $platform): mixed
     {
         if (false === enum_exists(static::getEnumsClass())) {
-            throw new \LogicException('This class should be an enum');
+            throw new LogicException('This class should be an enum');
         }
 
         if (null === $value) {
@@ -44,7 +45,7 @@ abstract class AbstractEnumType extends Type
         }
 
         if (!(is_int($value) || is_string($value))) {
-            throw new \LogicException('Value should be int or string');
+            throw new LogicException('Value should be int or string');
         }
 
         return static::getEnumsClass()::tryFrom($value);

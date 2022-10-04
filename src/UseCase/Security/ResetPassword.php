@@ -11,8 +11,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 final class ResetPassword implements ResetPasswordInterface
 {
     public function __construct(
-        private EntityManagerInterface $entityManager,
-        private UserPasswordHasherInterface $userPasswordHasher
+        private readonly EntityManagerInterface $entityManager,
+        private readonly UserPasswordHasherInterface $userPasswordHasher
     ) {
     }
 
@@ -25,7 +25,6 @@ final class ResetPassword implements ResetPasswordInterface
 
         $user->setPassword($this->userPasswordHasher->hashPassword($user, $plainPassword));
 
-        $this->entityManager->persist($user);
         $this->entityManager->remove($resetPasswordRequest);
         $this->entityManager->flush();
     }

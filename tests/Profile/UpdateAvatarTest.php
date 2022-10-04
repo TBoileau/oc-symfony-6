@@ -5,15 +5,18 @@ declare(strict_types=1);
 namespace App\Tests\Profile;
 
 use App\Doctrine\Entity\User;
+use App\Tests\WebTestCaseHelperTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-final class EditPasswordTest extends WebTestCase
+final class UpdateAvatarTest extends WebTestCase
 {
-    public function testShouldEditPassword(): void
+    use WebTestCaseHelperTrait;
+
+    public function testShouldUpdateAvatar(): void
     {
         $client = static::createClient();
 
@@ -25,27 +28,35 @@ final class EditPasswordTest extends WebTestCase
 
         $client->loginUser($user);
 
-        $client->request(Request::METHOD_GET, '/profile/edit-password');
-        $client->submitForm('Modifier', self::createFormData());
+        $client->request(Request::METHOD_GET, '/profile/update-avatar');
+        $client->submitForm('Modifier', self::createFormData(self::fakeImage()));
 
         /** @var User $user */
         $user = $entityManager->getRepository(User::class)->findOneBy(['email' => 'user+1@email.com']);
 
         self::assertResponseStatusCodeSame(Response::HTTP_FOUND);
-        self::assertResponseRedirects('/profile/edit-password');
-
-        /** @var UserPasswordHasherInterface $passwordHasher */
-        $passwordHasher = $client->getContainer()->get(UserPasswordHasherInterface::class);
+        self::assertResponseRedirects('/profile/update-avatar');
 
         $entityManager->refresh($user);
 
-        self::assertTrue($passwordHasher->isPasswordValid($user, 'Password123!'));
+        self::assertNotNull($user->getAvatar());
+
+        $avatar = $user->getAvatar();
+
+        $client->followRedirect();
+
+        $client->submitForm('Modifier', self::createFormData(self::fakeImage()));
+
+        $entityManager->refresh($user);
+
+        self::assertNotNull($user->getAvatar());
+        self::assertNotSame($avatar, $user->getAvatar());
     }
 
     public function testShouldRaiseHttpAccessDeniedExceptionAndRedirectToLogin(): void
     {
         $client = static::createClient();
-        $client->request(Request::METHOD_GET, '/profile/edit-password');
+        $client->request(Request::METHOD_GET, '/profile/update-avatar');
         self::assertResponseStatusCodeSame(Response::HTTP_FOUND);
         self::assertResponseRedirects('http://localhost/login');
     }
@@ -53,9 +64,7 @@ final class EditPasswordTest extends WebTestCase
     /**
      * @dataProvider provideInvalidFormData
      *
-     * @param array{
-     *      'reset_password[plainPassword]': string
-     * } $formData
+     * @param array{'update_avatar[avatarFile]': ?UploadedFile} $formData
      */
     public function testShouldRaiseFormErrors(array $formData): void
     {
@@ -69,38 +78,27 @@ final class EditPasswordTest extends WebTestCase
 
         $client->loginUser($user);
 
-        $client->request(Request::METHOD_GET, '/profile/edit-password');
+        $client->request(Request::METHOD_GET, '/profile/update-avatar');
         $client->submitForm('Modifier', $formData);
         self::assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**
-     * @return iterable<string, array<array-key, array{
-     *      'edit_password[currentPassword]': string,
-     *      'edit_password[plainPassword]': string
-     * }>>
+     * @return iterable<string, array<array-key, array{'update_avatar[avatarFile]': ?UploadedFile}>>
      */
     public function provideInvalidFormData(): iterable
     {
-        yield 'blank plainPassword' => [self::createFormData(plainPassword: '')];
-        yield 'invalid plainPassword' => [self::createFormData(plainPassword: 'fail')];
-        yield 'blank currentPassword' => [self::createFormData(currentPassword: '')];
-        yield 'wrong currentPassword' => [self::createFormData(currentPassword: 'fail')];
+        yield 'avatarFile null' => [self::createFormData()];
+        yield 'invalid avatarFile' => [self::createFormData(self::fakeFile())];
     }
 
     /**
-     * @return array{
-     *      'edit_password[currentPassword]': string,
-     *      'edit_password[plainPassword]': string
-     * }
+     * @return array{'update_avatar[avatarFile]': ?UploadedFile}
      */
-    private static function createFormData(
-        string $currentPassword = 'password',
-        string $plainPassword = 'Password123!'
-    ): array {
+    private static function createFormData(?UploadedFile $avatarFile = null): array
+    {
         return [
-            'edit_password[currentPassword]' => $currentPassword,
-            'edit_password[plainPassword]' => $plainPassword,
+            'update_avatar[avatarFile]' => $avatarFile,
         ];
     }
 }

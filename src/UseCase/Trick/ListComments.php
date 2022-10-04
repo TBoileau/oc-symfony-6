@@ -8,11 +8,14 @@ use App\Doctrine\Entity\Trick;
 use App\Doctrine\Repository\CommentRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+use function ceil;
+use function count;
+
 final class ListComments implements ListCommentsInterface
 {
     public function __construct(
-        private CommentRepository $commentRepository,
-        private UrlGeneratorInterface $urlGenerator
+        private readonly CommentRepository $commentRepository,
+        private readonly UrlGeneratorInterface $urlGenerator
     ) {
     }
 

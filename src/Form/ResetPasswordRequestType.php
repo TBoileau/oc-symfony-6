@@ -12,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ResetPasswordRequestType extends AbstractType
 {
-    public function __construct(private EmailUserTransformer $emailUserTransformer)
+    public function __construct(private readonly EmailUserTransformer $emailUserTransformer)
     {
     }
 

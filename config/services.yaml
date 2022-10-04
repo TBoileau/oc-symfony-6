@@ -1,6 +1,7 @@
 parameters:
   mailer.sender: 'noreply@snowtricks.com'
   trick.delete.by_owner_only: true
+  uploads_dir: '%kernel.project_dir%/public/uploads'
 
 services:
   _defaults:
@@ -8,6 +9,7 @@ services:
     autoconfigure: true
     bind:
       bool $deleteTrickByOwnerOnly: '%trick.delete.by_owner_only%'
+      string $uploadsDir: '%uploads_dir%'
 
   _instanceof:
     App\Mailer\Email\EmailInterface:

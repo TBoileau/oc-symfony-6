@@ -10,15 +10,16 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Image as ImageConstraint;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Regex;
-
-use function array_unique;
 
 #[Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'Cette adresse email est déjà utilisée.')]
@@ -54,6 +55,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[Column(type: 'uuid', nullable: true)]
     private ?Uuid $registrationToken = null;
+
+    #[Column(nullable: true)]
+    private ?string $avatar = null;
+
+    #[NotNull(groups: ['avatar'])]
+    #[ImageConstraint(groups: ['avatar'])]
+    private ?UploadedFile $avatarFile = null;
 
     public function getId(): ?int
     {
@@ -97,7 +105,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        return array_unique(['ROLE_USER']);
+        return ['ROLE_USER'];
     }
 
     /**
@@ -146,5 +154,73 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function hasValidatedRegistration(): bool
     {
         return null === $this->registrationToken;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): User
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function getAvatarFile(): ?UploadedFile
+    {
+        return $this->avatarFile;
+    }
+
+    public function setAvatarFile(?UploadedFile $avatarFile): User
+    {
+        $this->avatarFile = $avatarFile;
+
+        return $this;
+    }
+
+    /**
+     * @return array{
+     *      id: ?int,
+     *      email: string,
+     *      password: string,
+     *      nickname: string,
+     *      avatar: ?string,
+     *      registrationToken: ?string
+     * }
+     */
+    public function __serialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'password' => $this->password,
+            'nickname' => $this->nickname,
+            'avatar' => $this->avatar,
+            'registrationToken' => null !== $this->registrationToken ? (string) $this->registrationToken : null,
+        ];
+    }
+
+    /**
+     * @param array{
+     *      id: ?int,
+     *      email: string,
+     *      password: string,
+     *      nickname: string,
+     *      avatar: ?string,
+     *      registrationToken: ?string
+     * } $data
+     */
+    public function __unserialize(array $data): void
+    {
+        $this->id = $data['id'];
+        $this->email = $data['email'];
+        $this->password = $data['password'];
+        $this->nickname = $data['nickname'];
+        $this->avatar = $data['avatar'];
+        $this->registrationToken = null !== $data['registrationToken']
+            ? Uuid::fromString($data['registrationToken'])
+            : null;
     }
 }

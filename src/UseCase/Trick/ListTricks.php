@@ -7,10 +7,15 @@ namespace App\UseCase\Trick;
 use App\Doctrine\Repository\TrickRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+use function ceil;
+use function count;
+
 final class ListTricks implements ListTricksInterface
 {
-    public function __construct(private TrickRepository $trickRepository, private UrlGeneratorInterface $urlGenerator)
-    {
+    public function __construct(
+        private readonly TrickRepository $trickRepository,
+        private readonly UrlGeneratorInterface $urlGenerator
+    ) {
     }
 
     public function __invoke(int $page): array
