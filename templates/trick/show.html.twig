@@ -2,6 +2,9 @@
 
 {% block body %}
     <h1>{{ trick.name }}</h1>
+    {% if is_granted('ROLE_USER') %}
+        {{ component('comment', {comment: comment.id is null ? null : comment, form: form}) }}
+    {% endif %}
     <div data-controller="comments" data-trick-id="{{ trick.id }}">
         <div data-comments-target="list"></div>
         <button data-action="comments#next" data-comments-target="loadMore">Charger plus</button>

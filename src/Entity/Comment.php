@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[Entity(repositoryClass: CommentRepository::class)]
 class Comment
@@ -25,6 +26,7 @@ class Comment
 
     #[Column(type: Types::TEXT)]
     #[Groups(['comment:read'])]
+    #[NotBlank]
     private string $content;
 
     #[Column]
