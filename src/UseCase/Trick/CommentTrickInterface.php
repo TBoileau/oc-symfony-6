@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UseCase\Trick;
 
-use App\Entity\Comment;
+use App\Doctrine\Entity\Comment;
 
 interface CommentTrickInterface
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Entity\User;
+use App\Doctrine\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -43,6 +43,6 @@ final class RegistrationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('data_class', User::class);
-        $resolver->setDefault('validation_groups', ['registration', 'Default']);
+        $resolver->setDefault('validation_groups', ['password', 'Default']);
     }
 }

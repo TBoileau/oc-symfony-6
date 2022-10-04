@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UseCase\Security;
 
-use App\Entity\User;
+use App\Doctrine\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 
 final class ValidRegistration implements ValidRegistrationInterface

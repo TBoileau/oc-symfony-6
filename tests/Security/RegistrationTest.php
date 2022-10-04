@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Security;
 
-use App\Entity\User;
+use App\Doctrine\Entity\User;
 use App\Tests\WebTestCaseHelperTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\MailerAssertionsTrait;

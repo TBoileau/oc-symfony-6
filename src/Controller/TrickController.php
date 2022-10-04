@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Comment;
-use App\Entity\Trick;
-use App\Entity\User;
+use App\Doctrine\Entity\Comment;
+use App\Doctrine\Entity\Trick;
+use App\Doctrine\Entity\User;
 use App\Form\CommentType;
 use App\Security\Voter\TrickVoter;
 use App\UseCase\Trick\CommentTrickInterface;

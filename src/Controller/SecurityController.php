@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\ResetPasswordRequest;
-use App\Entity\User;
+use App\Doctrine\Entity\ResetPasswordRequest;
+use App\Doctrine\Entity\User;
 use App\Form\RegistrationType;
 use App\Form\ResetPasswordRequestType;
 use App\Form\ResetPasswordType;
@@ -103,7 +103,7 @@ final class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $resetPassword($resetPasswordRequest);
 
-            $this->addFlash('success', 'Votre mot de passe a été moidifié avec succès.');
+            $this->addFlash('success', 'Votre mot de passe a été modifié avec succès.');
 
             return $this->redirectToRoute('security_login');
         }

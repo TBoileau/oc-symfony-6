@@ -10,7 +10,7 @@ services:
       bool $deleteTrickByOwnerOnly: '%trick.delete.by_owner_only%'
 
   _instanceof:
-    App\Mailer\EmailInterface:
+    App\Mailer\Email\EmailInterface:
       tags: [ 'app.mailer.email' ]
 
     App\Doctrine\Type\AbstractEnumType:
@@ -20,7 +20,7 @@ services:
     resource: '../src/'
     exclude:
       - '../src/DependencyInjection/'
-      - '../src/Entity/'
+      - '../src/Doctrine/Entity/'
       - '../src/Kernel.php'
 
   App\Mailer\EmailSender:

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UseCase\Security;
 
-use App\Entity\ResetPasswordRequest;
+use App\Doctrine\Entity\ResetPasswordRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 

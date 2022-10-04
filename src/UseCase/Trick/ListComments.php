@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\UseCase\Trick;
 
-use App\Entity\Trick;
-use App\Repository\CommentRepository;
+use App\Doctrine\Entity\Trick;
+use App\Doctrine\Repository\CommentRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class ListComments implements ListCommentsInterface

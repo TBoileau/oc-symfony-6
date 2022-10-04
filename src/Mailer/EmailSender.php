@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Mailer;
 
+use App\Mailer\Email\EmailInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
