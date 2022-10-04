@@ -9,12 +9,19 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 use function array_unique;
 
 #[Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'Cette adresse email est déjà utilisée.')]
+#[UniqueEntity(fields: ['nickname'], message: 'Ce pseudo est déjà utilisé.')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[Id]
@@ -22,14 +29,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Column]
     private ?int $id = null;
 
+    #[NotBlank]
+    #[Email]
     #[Column(length: 180, unique: true)]
     private string $email;
 
     #[Column]
     private string $password;
 
+    #[NotBlank(groups: ['registration'])]
+    #[Regex(
+        pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
+        htmlPattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
+        groups: ['registration']
+    )]
+    private ?string $plainPassword = null;
+
+    #[NotBlank]
     #[Column(unique: true)]
     private string $nickname;
+
+    #[Column(nullable: true)]
+    private ?Uuid $registrationToken = null;
 
     public function getId(): ?int
     {
@@ -96,5 +117,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function eraseCredentials(): void
     {
+        $this->plainPassword = null;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+    public function getRegistrationToken(): ?Uuid
+    {
+        return $this->registrationToken;
+    }
+
+    public function setRegistrationToken(?Uuid $registrationToken): void
+    {
+        $this->registrationToken = $registrationToken;
     }
 }

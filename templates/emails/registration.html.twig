@@ -1,0 +1,6 @@
+{% extends 'email.html.twig' %}
+
+{% block body %}
+        <a href="{{ path('security_valid_registration', {registrationToken: user.registrationToken}) }}">Valider mon inscription</a>
+{% endblock %}
+

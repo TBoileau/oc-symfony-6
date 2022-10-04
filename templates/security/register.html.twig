@@ -1,0 +1,6 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ component('registration', {user: user.id is null ? null : user, form: form}) }}
+{% endblock %}
+
