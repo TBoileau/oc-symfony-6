@@ -12,7 +12,9 @@ use App\Form\ResetPasswordType;
 use App\UseCase\Security\RegisterInterface;
 use App\UseCase\Security\RequestResetPasswordInterface;
 use App\UseCase\Security\ResetPasswordInterface;
+use App\UseCase\Security\ValidRegistrationInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -55,8 +57,13 @@ final class SecurityController extends AbstractController
     }
 
     #[Route('/register/{registrationToken}/valid', name: 'valid_registration', methods: [Request::METHOD_GET])]
-    public function validRegistration(): void
+    public function validRegistration(User $user, ValidRegistrationInterface $validRegistration): RedirectResponse
     {
+        $validRegistration($user);
+
+        $this->addFlash('success', 'Votre inscription a été validée avec succès.');
+
+        return $this->redirectToRoute('security_login');
     }
 
     #[Route('/reset-password/request', name: 'reset_password_request', methods: [Request::METHOD_GET, Request::METHOD_POST])]

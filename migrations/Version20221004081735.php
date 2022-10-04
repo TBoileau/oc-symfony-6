@@ -20,7 +20,7 @@ final class Version20221004081735 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE user ADD registration_token VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE user ADD registration_token BINARY(16) NULL COMMENT \'(DC2Type:uuid)\' DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
