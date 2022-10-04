@@ -10,6 +10,9 @@ services:
     App\Mailer\EmailInterface:
       tags: [ 'app.mailer.email' ]
 
+    App\Doctrine\Type\AbstractEnumType:
+      tags: [ 'app.doctrine.enum_type' ]
+
   App\:
     resource: '../src/'
     exclude:

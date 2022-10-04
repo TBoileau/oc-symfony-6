@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping\Id;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -47,6 +48,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[NotBlank]
     #[Column(unique: true)]
+    #[Groups(['trick:read'])]
     private string $nickname;
 
     #[Column(type: 'uuid', nullable: true)]
