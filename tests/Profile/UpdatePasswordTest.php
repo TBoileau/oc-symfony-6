@@ -11,9 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-final class EditPasswordTest extends WebTestCase
+final class UpdatePasswordTest extends WebTestCase
 {
-    public function testShouldEditPassword(): void
+    public function testShouldUpdatePassword(): void
     {
         $client = static::createClient();
 
@@ -25,14 +25,14 @@ final class EditPasswordTest extends WebTestCase
 
         $client->loginUser($user);
 
-        $client->request(Request::METHOD_GET, '/profile/edit-password');
+        $client->request(Request::METHOD_GET, '/profile/update-password');
         $client->submitForm('Modifier', self::createFormData());
 
         /** @var User $user */
         $user = $entityManager->getRepository(User::class)->findOneBy(['email' => 'user+1@email.com']);
 
         self::assertResponseStatusCodeSame(Response::HTTP_FOUND);
-        self::assertResponseRedirects('/profile/edit-password');
+        self::assertResponseRedirects('/profile/update-password');
 
         /** @var UserPasswordHasherInterface $passwordHasher */
         $passwordHasher = $client->getContainer()->get(UserPasswordHasherInterface::class);
@@ -45,7 +45,7 @@ final class EditPasswordTest extends WebTestCase
     public function testShouldRaiseHttpAccessDeniedExceptionAndRedirectToLogin(): void
     {
         $client = static::createClient();
-        $client->request(Request::METHOD_GET, '/profile/edit-password');
+        $client->request(Request::METHOD_GET, '/profile/update-password');
         self::assertResponseStatusCodeSame(Response::HTTP_FOUND);
         self::assertResponseRedirects('http://localhost/login');
     }
@@ -54,7 +54,8 @@ final class EditPasswordTest extends WebTestCase
      * @dataProvider provideInvalidFormData
      *
      * @param array{
-     *      'reset_password[plainPassword]': string
+     *      'update_password[currentPassword]': string,
+     *      'update_password[plainPassword]': string
      * } $formData
      */
     public function testShouldRaiseFormErrors(array $formData): void
@@ -69,15 +70,15 @@ final class EditPasswordTest extends WebTestCase
 
         $client->loginUser($user);
 
-        $client->request(Request::METHOD_GET, '/profile/edit-password');
+        $client->request(Request::METHOD_GET, '/profile/update-password');
         $client->submitForm('Modifier', $formData);
         self::assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**
      * @return iterable<string, array<array-key, array{
-     *      'edit_password[currentPassword]': string,
-     *      'edit_password[plainPassword]': string
+     *      'update_password[currentPassword]': string,
+     *      'update_password[plainPassword]': string
      * }>>
      */
     public function provideInvalidFormData(): iterable
@@ -90,8 +91,8 @@ final class EditPasswordTest extends WebTestCase
 
     /**
      * @return array{
-     *      'edit_password[currentPassword]': string,
-     *      'edit_password[plainPassword]': string
+     *      'update_password[currentPassword]': string,
+     *      'update_password[plainPassword]': string
      * }
      */
     private static function createFormData(
@@ -99,8 +100,8 @@ final class EditPasswordTest extends WebTestCase
         string $plainPassword = 'Password123!'
     ): array {
         return [
-            'edit_password[currentPassword]' => $currentPassword,
-            'edit_password[plainPassword]' => $plainPassword,
+            'update_password[currentPassword]' => $currentPassword,
+            'update_password[plainPassword]' => $plainPassword,
         ];
     }
 }

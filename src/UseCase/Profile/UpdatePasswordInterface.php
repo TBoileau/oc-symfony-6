@@ -6,7 +6,7 @@ namespace App\UseCase\Profile;
 
 use App\Doctrine\Entity\User;
 
-interface EditPasswordInterface
+interface UpdatePasswordInterface
 {
     public function __invoke(User $user): void;
 }

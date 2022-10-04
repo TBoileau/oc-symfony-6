@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-final class EditPasswordType extends ResetPasswordType
+final class UpdatePasswordType extends ResetPasswordType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

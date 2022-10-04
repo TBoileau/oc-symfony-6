@@ -8,7 +8,7 @@ use App\Doctrine\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-final class EditPassword implements EditPasswordInterface
+final class UpdatePassword implements UpdatePasswordInterface
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
