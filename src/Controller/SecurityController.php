@@ -8,11 +8,14 @@ use App\Entity\ResetPasswordRequest;
 use App\Entity\User;
 use App\Form\RegistrationType;
 use App\Form\ResetPasswordRequestType;
+use App\Form\ResetPasswordType;
 use App\UseCase\Security\RegisterInterface;
 use App\UseCase\Security\RequestResetPasswordInterface;
+use App\UseCase\Security\ResetPasswordInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -33,7 +36,7 @@ final class SecurityController extends AbstractController
     {
     }
 
-    #[Route('/register', name: 'register')]
+    #[Route('/register', name: 'register', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function register(Request $request, RegisterInterface $register): Response
     {
         $user = new User();
@@ -51,12 +54,12 @@ final class SecurityController extends AbstractController
         return $this->renderForm('security/register.html.twig', ['form' => $form, 'user' => $user]);
     }
 
-    #[Route('/register/{registrationToken}/valid', name: 'valid_registration')]
+    #[Route('/register/{registrationToken}/valid', name: 'valid_registration', methods: [Request::METHOD_GET])]
     public function validRegistration(): void
     {
     }
 
-    #[Route('/reset-password/request', name: 'reset_password_request')]
+    #[Route('/reset-password/request', name: 'reset_password_request', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function requestResetPassword(Request $request, RequestResetPasswordInterface $requestResetPassword): Response
     {
         $resetPasswordRequest = new ResetPasswordRequest();
@@ -77,8 +80,30 @@ final class SecurityController extends AbstractController
         ]);
     }
 
-    #[Route('/reset-password/{token}', name: 'reset_password')]
-    public function resetPassword(): void
-    {
+    #[Route('/reset-password/{token}', name: 'reset_password', methods: [Request::METHOD_GET, Request::METHOD_POST])]
+    public function resetPassword(
+        ResetPasswordRequest $resetPasswordRequest,
+        Request $request,
+        ResetPasswordInterface $resetPassword
+    ): Response {
+        if ($resetPasswordRequest->isExpired()) {
+            throw new BadRequestHttpException('Le lien de réinitialisation de mot de passe a expiré.');
+        }
+
+        $form = $this->createForm(ResetPasswordType::class, $resetPasswordRequest->getUser())
+            ->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $resetPassword($resetPasswordRequest);
+
+            $this->addFlash('success', 'Votre mot de passe a été moidifié avec succès.');
+
+            return $this->redirectToRoute('security_login');
+        }
+
+        return $this->renderForm('security/reset_password.html.twig', [
+            'form' => $form,
+            'user' => $resetPasswordRequest->getUser(),
+        ]);
     }
 }

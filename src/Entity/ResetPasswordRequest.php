@@ -31,7 +31,7 @@ class ResetPasswordRequest
     #[Column]
     private DateTimeImmutable $expiredAt;
 
-    #[Column]
+    #[Column(type: 'uuid')]
     private Uuid $token;
 
     public function __construct()
@@ -71,5 +71,10 @@ class ResetPasswordRequest
         $this->token = $token;
 
         return $this;
+    }
+
+    public function isExpired(): bool
+    {
+        return $this->expiredAt < new DateTimeImmutable();
     }
 }
