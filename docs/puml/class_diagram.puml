@@ -17,10 +17,17 @@ package "Snowtricks" {
         - DateTimeInterface createdAt
         - DateTimeInterface updatedAt
         - User user
-        - Media cover
+        - Image cover
     }
 
     User "1" -- "0..*" Trick
+
+    class Category {
+        - int id
+        - string name
+    }
+
+    Category "1" -- "0..*" Trick
 
     class Comment {
         - int id
@@ -39,7 +46,7 @@ package "Snowtricks" {
     }
 
     class Image extends Media {
-        - string path
+        - string filename
         - string alt
     }
 
@@ -55,7 +62,7 @@ package "Snowtricks" {
     }
 
     Trick "1" -- "0..*" Media
-    Trick "1" -- "0..1" Media
+    Trick "1" -- "0..1" Image
     Video -- VideoProvider
 }
 
