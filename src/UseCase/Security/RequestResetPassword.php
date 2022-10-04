@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\UseCase\Security;
 
-use App\Entity\ResetPasswordRequest;
+use App\Doctrine\Entity\ResetPasswordRequest;
+use App\Mailer\Email\ResetPasswordRequestEmail;
 use App\Mailer\EmailSenderInterface;
-use App\Mailer\ResetPasswordRequestEmail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Uid\Uuid;
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\ResetPasswordRequest;
-use App\Entity\User;
+use App\Doctrine\Entity\ResetPasswordRequest;
+use App\Doctrine\Entity\User;
 use App\Form\RegistrationType;
 use App\Form\ResetPasswordRequestType;
 use App\Form\ResetPasswordType;

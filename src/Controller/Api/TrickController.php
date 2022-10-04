@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Entity\Trick;
+use App\Doctrine\Entity\Trick;
 use App\UseCase\Trick\ListCommentsInterface;
 use App\UseCase\Trick\ListTricksInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

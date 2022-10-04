@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\UseCase\Security;
 
-use App\Entity\User;
+use App\Doctrine\Entity\User;
+use App\Mailer\Email\RegistrationEmail;
 use App\Mailer\EmailSenderInterface;
-use App\Mailer\RegistrationEmail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Uid\Uuid;

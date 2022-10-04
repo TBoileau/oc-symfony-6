@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UseCase\Trick;
 
-use App\Repository\TrickRepository;
+use App\Doctrine\Repository\TrickRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class ListTricks implements ListTricksInterface

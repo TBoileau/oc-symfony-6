@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Trick;
 
-use App\Entity\Comment;
-use App\Entity\Trick;
-use App\Entity\User;
+use App\Doctrine\Entity\Comment;
+use App\Doctrine\Entity\Trick;
+use App\Doctrine\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;

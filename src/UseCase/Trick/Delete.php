@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UseCase\Trick;
 
-use App\Entity\Trick;
+use App\Doctrine\Entity\Trick;
 use Doctrine\ORM\EntityManagerInterface;
 
 final class Delete implements DeleteInterface

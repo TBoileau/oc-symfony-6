@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Doctrine\Type;
 
-use App\Entity\VideoProvider;
+use App\Doctrine\Entity\VideoProvider;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 final class VideoProviderType extends AbstractEnumType

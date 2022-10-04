@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Security\Voter;
 
-use App\Entity\Trick;
-use App\Entity\User;
+use App\Doctrine\Entity\Trick;
+use App\Doctrine\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 

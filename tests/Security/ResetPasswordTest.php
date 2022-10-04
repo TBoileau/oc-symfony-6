@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Security;
 
-use App\Entity\ResetPasswordRequest;
-use App\Entity\User;
+use App\Doctrine\Entity\ResetPasswordRequest;
+use App\Doctrine\Entity\User;
 use App\Tests\WebTestCaseHelperTrait;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
