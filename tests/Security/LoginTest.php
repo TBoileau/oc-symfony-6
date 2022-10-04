@@ -26,20 +26,10 @@ final class LoginTest extends WebTestCase
     {
         $client = static::createClient();
         $client->request(Request::METHOD_GET, '/login');
-        $client->submitForm('Se connecter', self::createFormData(email: 'user+6@email.com'));
-
-        self::assertResponseRedirects('http://localhost/login');
-        self::assertIsAuthenticated(false);
-    }
-
-    public function testShouldNotAuthenticatedAnUserThatNotValidateItsRegistrationAndRedirectToIndex(): void
-    {
-        $client = static::createClient();
-        $client->request(Request::METHOD_GET, '/login');
         $client->submitForm('Se connecter', self::createFormData(email: 'user+11@email.com'));
 
-        self::assertIsAuthenticated(false);
         self::assertResponseRedirects('http://localhost/login');
+        self::assertIsAuthenticated(false);
     }
 
     /**

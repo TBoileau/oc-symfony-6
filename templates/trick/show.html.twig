@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ trick.name }}</h1>
+    <div data-controller="comments" data-trick-id="{{ trick.id }}">
+        <div data-comments-target="list"></div>
+        <button data-action="comments#next" data-comments-target="loadMore">Charger plus</button>
+    </div>
+{% endblock %}
+

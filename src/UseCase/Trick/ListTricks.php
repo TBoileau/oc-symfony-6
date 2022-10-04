@@ -19,7 +19,9 @@ final class ListTricks implements ListTricksInterface
 
         $tricks = $this->trickRepository->getTricksByPage($page);
 
-        $pages = (int) ceil($total / 10);
+        $limit = 10;
+
+        $pages = (int) ceil($total / $limit);
 
         $links = [
             'self' => [
@@ -35,7 +37,7 @@ final class ListTricks implements ListTricksInterface
 
         return [
             'page' => $page,
-            'limit' => 10,
+            'limit' => $limit,
             'pages' => $pages,
             'total' => $total,
             'count' => count($tricks),

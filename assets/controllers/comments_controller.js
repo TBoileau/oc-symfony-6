@@ -1,7 +1,7 @@
 import {Controller} from '@hotwired/stimulus';
 
 /**
- * @class TricksController
+ * @class CommentsController
  */
 export default class extends Controller {
   /**
@@ -22,18 +22,22 @@ export default class extends Controller {
    *            next?: {href: string}
    *          },
    *          _embedded: {
-   *              tricks: {
-   *                name: string,
-   *                slug: string,
-   *                category: {name: string},
-   *                user: {nickname: string},
-   *                cover: {filename}
+   *              comments: {
+   *                createdAt: string,
+   *                content: string,
+   *                user: {nickname: string}
    *              }[]
    *          }
    *      }
    *  }
    */
-  data = {_links: {next: {href: '/api/tricks'}}};
+  data = {
+    _links: {
+      next: {
+        href: `/api/tricks/${this.element.dataset.trickId}/comments`,
+      },
+    },
+  };
 
   /**
    * Connect
@@ -58,13 +62,10 @@ export default class extends Controller {
    * Load page
    */
   load() {
-    this.data._embedded.tricks.forEach((trick) => {
-      const trickElement = document.createElement('div');
-      const linkElement = document.createElement('a');
-      linkElement.innerHTML = trick.name;
-      linkElement.href = `/${trick.slug}`;
-      trickElement.appendChild(linkElement);
-      this.listTarget.appendChild(trickElement);
+    this.data._embedded.comments.forEach((comment) => {
+      const commentElement = document.createElement('div');
+      commentElement.innerHTML = comment.content;
+      this.listTarget.appendChild(commentElement);
     });
 
     if (!this.data._links.next) {
