@@ -47,7 +47,6 @@ abstract class AbstractEnumType extends Type
             throw new \LogicException('Value should be int or string');
         }
 
-        /** @phpstan-ignore-next-line */
         return static::getEnumsClass()::tryFrom($value);
     }
 }
