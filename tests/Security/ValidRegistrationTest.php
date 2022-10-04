@@ -27,7 +27,7 @@ final class ValidRegistrationTest extends WebTestCase
         $entityManager = $client->getContainer()->get(EntityManagerInterface::class);
 
         /** @var User $user */
-        $user = $entityManager->getRepository(User::class)->findOneBy(['email' => 'user+6@email.com']);
+        $user = $entityManager->getRepository(User::class)->findOneBy(['email' => 'user+11@email.com']);
 
         $client->request(
             Request::METHOD_GET,
