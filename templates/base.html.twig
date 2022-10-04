@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Snowtricks{% endblock %}</title>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -12,6 +12,7 @@
         {% endblock %}
     </head>
     <body>
+        {{ component('flash_messages') }}
         {% block body %}{% endblock %}
     </body>
 </html>
