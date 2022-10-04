@@ -103,7 +103,7 @@ final class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $resetPassword($resetPasswordRequest);
 
-            $this->addFlash('success', 'Votre mot de passe a été moidifié avec succès.');
+            $this->addFlash('success', 'Votre mot de passe a été modifié avec succès.');
 
             return $this->redirectToRoute('security_login');
         }

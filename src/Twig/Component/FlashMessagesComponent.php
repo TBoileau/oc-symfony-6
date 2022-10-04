@@ -7,10 +7,10 @@ namespace App\Twig\Component;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
+use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
-#[AsLiveComponent('flash_messages')]
+#[AsTwigComponent('flash_messages')]
 final class FlashMessagesComponent
 {
     use DefaultActionTrait;

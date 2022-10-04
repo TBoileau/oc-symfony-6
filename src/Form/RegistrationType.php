@@ -43,6 +43,6 @@ final class RegistrationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('data_class', User::class);
-        $resolver->setDefault('validation_groups', ['registration', 'Default']);
+        $resolver->setDefault('validation_groups', ['password', 'Default']);
     }
 }

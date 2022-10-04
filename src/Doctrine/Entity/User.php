@@ -39,11 +39,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Column]
     private string $password;
 
-    #[NotBlank(groups: ['registration'])]
+    #[NotBlank(groups: ['password'])]
     #[Regex(
         pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
         htmlPattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
-        groups: ['registration']
+        groups: ['password']
     )]
     private ?string $plainPassword = null;
 
