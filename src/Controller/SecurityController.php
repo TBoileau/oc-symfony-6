@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\ResetPasswordRequest;
 use App\Entity\User;
 use App\Form\RegistrationType;
+use App\Form\ResetPasswordRequestType;
 use App\UseCase\Security\RegisterInterface;
+use App\UseCase\Security\RequestResetPasswordInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,6 +53,32 @@ final class SecurityController extends AbstractController
 
     #[Route('/register/{registrationToken}/valid', name: 'valid_registration')]
     public function validRegistration(): void
+    {
+    }
+
+    #[Route('/reset-password/request', name: 'reset_password_request')]
+    public function requestResetPassword(Request $request, RequestResetPasswordInterface $requestResetPassword): Response
+    {
+        $resetPasswordRequest = new ResetPasswordRequest();
+
+        $form = $this->createForm(ResetPasswordRequestType::class, $resetPasswordRequest)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $requestResetPassword($resetPasswordRequest);
+
+            $this->addFlash('success', 'Votre demande de réinitialisation de mot de passe a été enregistrée avec succès.');
+
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->renderForm('security/request_reset_password.html.twig', [
+            'form' => $form,
+            'reset_password_request' => $resetPasswordRequest,
+        ]);
+    }
+
+    #[Route('/reset-password/{token}', name: 'reset_password')]
+    public function resetPassword(): void
     {
     }
 }
