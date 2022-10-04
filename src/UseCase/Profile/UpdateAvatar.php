@@ -15,8 +15,8 @@ use function sprintf;
 final class UpdateAvatar implements UpdateAvatarInterface
 {
     public function __construct(
-        private EntityManagerInterface $entityManager,
-        private string $uploadsDir
+        private readonly EntityManagerInterface $entityManager,
+        private readonly string $uploadsDir
     ) {
     }
 

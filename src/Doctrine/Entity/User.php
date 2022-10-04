@@ -21,8 +21,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Regex;
 
-use function array_unique;
-
 #[Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'Cette adresse email est déjà utilisée.')]
 #[UniqueEntity(fields: ['nickname'], message: 'Ce pseudo est déjà utilisé.')]
@@ -107,7 +105,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        return array_unique(['ROLE_USER']);
+        return ['ROLE_USER'];
     }
 
     /**

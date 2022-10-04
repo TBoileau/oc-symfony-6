@@ -14,9 +14,9 @@ use Symfony\Component\Uid\Uuid;
 final class Register implements RegisterInterface
 {
     public function __construct(
-        private EntityManagerInterface $entityManager,
-        private UserPasswordHasherInterface $userPasswordHasher,
-        private EmailSenderInterface $emailSender
+        private readonly EntityManagerInterface $entityManager,
+        private readonly UserPasswordHasherInterface $userPasswordHasher,
+        private readonly EmailSenderInterface $emailSender
     ) {
     }
 

@@ -14,7 +14,7 @@ use function sprintf;
 
 final class UserFixtures extends Fixture
 {
-    public function __construct(private UserPasswordHasherInterface $userPasswordHasher)
+    public function __construct(private readonly UserPasswordHasherInterface $userPasswordHasher)
     {
     }
 

@@ -11,8 +11,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 final class UpdatePassword implements UpdatePasswordInterface
 {
     public function __construct(
-        private EntityManagerInterface $entityManager,
-        private UserPasswordHasherInterface $userPasswordHasher
+        private readonly EntityManagerInterface $entityManager,
+        private readonly UserPasswordHasherInterface $userPasswordHasher
     ) {
     }
 
