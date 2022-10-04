@@ -24,6 +24,10 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <exclude>
+            <directory suffix=".php">src/Component</directory>
+            <directory suffix=".php">src/DataFixtures</directory>
+        </exclude>
         <report>
             <clover outputFile="var/coverage/clover.xml"/>
             <html outputDirectory="var/coverage/html" lowUpperBound="35" highLowerBound="70"/>

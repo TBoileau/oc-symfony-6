@@ -10,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Bundle\SecurityBundle\DataCollector\SecurityDataCollector;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\Profiler\Profile;
-use Symfony\Component\Mailer\DataCollector\MessageDataCollector;
 
 trait WebTestCaseHelperTrait
 {
@@ -44,16 +43,6 @@ trait WebTestCaseHelperTrait
             null,
             true
         );
-    }
-
-    public function assertEmailContains(string $needle): void
-    {
-        /** @var Profile $profile */
-        $profile = self::getClient()->getProfile();
-        $collector = $profile->getCollector('mailer');
-        self::assertInstanceOf(MessageDataCollector::class, $collector);
-        $messages = $collector->getEvents()->getMessages();
-        self::assertEmailHtmlBodyContains($messages[0], $needle);
     }
 
     public function assertFlashBagContains(string $type, string $message): void
