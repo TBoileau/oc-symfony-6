@@ -23,7 +23,6 @@ final class UpdatePassword implements UpdatePasswordInterface
 
         $user->setPassword($this->userPasswordHasher->hashPassword($user, $plainPassword));
 
-        $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
 }

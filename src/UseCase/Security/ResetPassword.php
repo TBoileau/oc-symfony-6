@@ -25,7 +25,6 @@ final class ResetPassword implements ResetPasswordInterface
 
         $user->setPassword($this->userPasswordHasher->hashPassword($user, $plainPassword));
 
-        $this->entityManager->persist($user);
         $this->entityManager->remove($resetPasswordRequest);
         $this->entityManager->flush();
     }
