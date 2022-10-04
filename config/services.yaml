@@ -1,10 +1,13 @@
 parameters:
   mailer.sender: 'noreply@snowtricks.com'
+  trick.delete.by_owner_only: true
 
 services:
   _defaults:
     autowire: true
     autoconfigure: true
+    bind:
+      bool $deleteTrickByOwnerOnly: '%trick.delete.by_owner_only%'
 
   _instanceof:
     App\Mailer\EmailInterface:

@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div data-controller="tricks">
+    <div data-controller="tricks"
+         data-user-id="{{ is_granted('ROLE_USER') ? app.user.id : null }}"
+         data-delete-trick-by-owner-only="{{ delete_trick_by_owner_only }}">
         <div data-tricks-target="list"></div>
         <button data-action="tricks#next" data-tricks-target="loadMore">Charger plus</button>
     </div>

@@ -25,7 +25,6 @@ final class DeleteTest extends WebTestCase
 
         $client->loginUser($user);
 
-
         $client->request(Request::METHOD_GET, '/trick-1/delete');
         self::assertResponseIsSuccessful();
         $client->submitForm('Supprimer');
