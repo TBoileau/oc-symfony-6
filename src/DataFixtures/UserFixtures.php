@@ -20,12 +20,12 @@ final class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        for ($i = 1; $i <= 10; ++$i) {
+        for ($i = 1; $i <= 15; ++$i) {
             $user = (new User())
                 ->setEmail(sprintf('user+%d@email.com', $i))
                 ->setNickname(sprintf('user+%d', $i));
 
-            if ($i > 5) {
+            if ($i > 10) {
                 $user->setRegistrationToken(Uuid::v4());
             }
 

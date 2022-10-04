@@ -48,7 +48,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[NotBlank]
     #[Column(unique: true)]
-    #[Groups(['trick:read'])]
+    #[Groups(['trick:read', 'comment:read'])]
     private string $nickname;
 
     #[Column(type: 'uuid', nullable: true)]
