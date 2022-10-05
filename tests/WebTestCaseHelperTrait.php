@@ -8,8 +8,10 @@ use ReflectionMethod;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Bundle\SecurityBundle\DataCollector\SecurityDataCollector;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\Profiler\Profile;
+use Symfony\Component\Uid\Uuid;
 
 trait WebTestCaseHelperTrait
 {
@@ -25,9 +27,18 @@ trait WebTestCaseHelperTrait
 
     public function fakeImage(): UploadedFile
     {
-        return new UploadedFile(
+        $filesystem = new Filesystem();
+
+        $filename = sprintf('%s/../public/uploads/%s.png', __DIR__, Uuid::v4());
+
+        $filesystem->copy(
             __DIR__.'/../public/uploads/image.png',
-            'image.png',
+            $filename
+        );
+
+        return new UploadedFile(
+            $filename,
+            'image_copy.png',
             'image/png',
             null,
             true
@@ -36,9 +47,18 @@ trait WebTestCaseHelperTrait
 
     public function fakeFile(): UploadedFile
     {
-        return new UploadedFile(
+        $filesystem = new Filesystem();
+
+        $filename = sprintf('%s/../public/uploads/%s.txt', __DIR__, Uuid::v4());
+
+        $filesystem->copy(
             __DIR__.'/../public/uploads/file.txt',
-            'file.txt',
+            $filename
+        );
+
+        return new UploadedFile(
+            $filename,
+            'file_copy.txt',
             'text/plain',
             null,
             true
