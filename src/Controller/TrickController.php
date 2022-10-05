@@ -13,6 +13,7 @@ use App\Security\Voter\TrickVoter;
 use App\UseCase\Trick\CommentTrickInterface;
 use App\UseCase\Trick\CreateTrickInterface;
 use App\UseCase\Trick\DeleteTrickInterface;
+use App\UseCase\Trick\UpdateTrickInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,6 +54,26 @@ final class TrickController extends AbstractController
         }
 
         return $this->renderForm('trick/create.html.twig', [
+            'form' => $form,
+            'trick' => $trick,
+        ]);
+    }
+
+    #[Route('/{slug}/update', name: 'update', methods: [Request::METHOD_GET, Request::METHOD_POST])]
+    #[IsGranted('ROLE_USER')]
+    public function update(Trick $trick, Request $request, UpdateTrickInterface $updateTrick): Response
+    {
+        $form = $this->createForm(TrickType::class, $trick)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $updateTrick($trick);
+
+            $this->addFlash('success', 'La figure a été modifiée avec succès.');
+
+            return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
+        }
+
+        return $this->renderForm('trick/update.html.twig', [
             'form' => $form,
             'trick' => $trick,
         ]);
