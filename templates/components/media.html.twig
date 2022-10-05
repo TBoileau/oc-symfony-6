@@ -1,0 +1,10 @@
+{{ form_widget(form.type, {attr: {class: 'type'}}) }}
+<div class="image {{ form.type.vars.data == 'image' ? '' : 'd-none'}}">
+    {{ form_row(form.file) }}
+    {{ form_row(form.alt) }}
+</div>
+<div class="video {{ form.type.vars.data == 'video' ? '' : 'd-none'}}">
+    {{ form_row(form.url) }}
+    {{ form_row(form.provider) }}
+</div>
+<button data-action="collection#delete">Supprimer</button>

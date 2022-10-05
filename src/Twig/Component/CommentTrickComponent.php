@@ -13,8 +13,8 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
-#[AsLiveComponent('comment')]
-final class CommentComponent extends AbstractController
+#[AsLiveComponent('comment_trick')]
+final class CommentTrickComponent extends AbstractController
 {
     use DefaultActionTrait;
     use ComponentWithFormTrait;

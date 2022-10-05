@@ -16,7 +16,13 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Count;
+use Symfony\Component\Validator\Constraints\Image as ImageConstraint;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Constraints\Valid;
 
 #[Entity(repositoryClass: TrickRepository::class)]
 class Trick
@@ -28,9 +34,11 @@ class Trick
 
     #[Column]
     #[Groups(['trick:read'])]
+    #[NotBlank]
     private string $name;
 
     #[Column(type: Types::TEXT)]
+    #[NotBlank]
     private string $description;
 
     #[Column(unique: true)]
@@ -53,6 +61,10 @@ class Trick
     #[Groups(['trick:read'])]
     private string $cover;
 
+    #[NotNull(groups: ['cover'])]
+    #[ImageConstraint(groups: ['cover'])]
+    private ?UploadedFile $coverFile = null;
+
     #[ManyToOne]
     #[JoinColumn(nullable: false)]
     #[Groups(['trick:read'])]
@@ -62,6 +74,8 @@ class Trick
      * @var Collection<int, Media>
      */
     #[OneToMany(mappedBy: 'trick', targetEntity: Media::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[Count(min: 1)]
+    #[Valid]
     private Collection $medias;
 
     public function __construct()
@@ -185,6 +199,18 @@ class Trick
     public function setCategory(Category $category): Trick
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getCoverFile(): ?UploadedFile
+    {
+        return $this->coverFile;
+    }
+
+    public function setCoverFile(?UploadedFile $coverFile): Trick
+    {
+        $this->coverFile = $coverFile;
 
         return $this;
     }
