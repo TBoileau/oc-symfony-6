@@ -7,7 +7,7 @@ namespace App\UseCase\Trick;
 use App\Doctrine\Entity\Trick;
 use Doctrine\ORM\EntityManagerInterface;
 
-final class Delete implements DeleteInterface
+final class DeleteTrick implements DeleteTrickInterface
 {
     public function __construct(private readonly EntityManagerInterface $entityManager)
     {

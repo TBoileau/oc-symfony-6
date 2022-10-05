@@ -6,11 +6,15 @@ namespace App\Doctrine\Entity;
 
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[Entity]
 class Video extends Media
 {
     #[Column]
+    #[NotBlank]
     private string $url;
 
     #[Column]
@@ -38,5 +42,15 @@ class Video extends Media
         $this->provider = $provider;
 
         return $this;
+    }
+
+    #[Callback]
+    public function validate(ExecutionContextInterface $context): void
+    {
+        if (!$this->provider->check($this->url)) {
+            $context->buildViolation('L\'url de la vidéo ne correspond pas au fournisseur.')
+                ->atPath('url')
+                ->addViolation();
+        }
     }
 }

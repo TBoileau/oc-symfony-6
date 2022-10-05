@@ -19,4 +19,11 @@ parameters:
         - src
         - tests
     ignoreErrors:
-        - '#limit: 5#'
+        -
+            message: '#limit: 5#'
+            paths:
+                - src/UseCase/Trick/ListComments.php
+        -
+            message: '#no value type specified#'
+            path: tests/Trick/CreateTest.php
+            count: 4

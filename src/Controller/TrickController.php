@@ -8,9 +8,11 @@ use App\Doctrine\Entity\Comment;
 use App\Doctrine\Entity\Trick;
 use App\Doctrine\Entity\User;
 use App\Form\CommentType;
+use App\Form\TrickType;
 use App\Security\Voter\TrickVoter;
 use App\UseCase\Trick\CommentTrickInterface;
-use App\UseCase\Trick\DeleteInterface;
+use App\UseCase\Trick\CreateTrickInterface;
+use App\UseCase\Trick\DeleteTrickInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,9 +28,39 @@ final class TrickController extends AbstractController
         return $this->render('trick/list.html.twig');
     }
 
+    #[Route('/create', name: 'create', methods: [Request::METHOD_GET, Request::METHOD_POST])]
+    #[IsGranted('ROLE_USER')]
+    public function create(Request $request, CreateTrickInterface $createTrick): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $trick = new Trick();
+        $trick->setUser($user);
+
+        $form = $this->createForm(
+            TrickType::class,
+            $trick,
+            ['validation_groups' => ['cover', 'image', 'Default']]
+        )->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $createTrick($trick);
+
+            $this->addFlash('success', 'La figure a été ajoutée avec succès.');
+
+            return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
+        }
+
+        return $this->renderForm('trick/create.html.twig', [
+            'form' => $form,
+            'trick' => $trick,
+        ]);
+    }
+
     #[Route('/{slug}/delete', name: 'delete', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     #[IsGranted(TrickVoter::DELETE, subject: 'trick')]
-    public function delete(Trick $trick, Request $request, DeleteInterface $delete): Response
+    public function delete(Trick $trick, Request $request, DeleteTrickInterface $delete): Response
     {
         $form = $this->createFormBuilder()->getForm()->handleRequest($request);
 

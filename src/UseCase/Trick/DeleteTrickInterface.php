@@ -6,7 +6,7 @@ namespace App\UseCase\Trick;
 
 use App\Doctrine\Entity\Trick;
 
-interface DeleteInterface
+interface DeleteTrickInterface
 {
     public function __invoke(Trick $trick): void;
 }
