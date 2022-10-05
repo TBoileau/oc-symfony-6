@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(form) }}
+        {{ form_widget(form._token) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.category) }}
+        {{ form_row(form.coverFile) }}
+        <div data-controller="collection" data-prototype="{{ include('components/media.html.twig', {form: form.medias.vars.prototype})|e('html') }}">
+            {% component modal with {id: 'modal-item', title: 'Ajout d\'un média'} %}
+                {% block body %}
+                    <div class="alert alert-info">
+                        Que souhaitez-vous ajouter ?
+                    </div>
+                {% endblock %}
+                {% block footer %}
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-action="collection#add" data-type="video">Vidéo</button>
+                        <button type="button" class="btn btn-primary" data-action="collection#add" data-type="image">Image</button>
+                    </div>
+                {% endblock %}
+            {% endcomponent %}
+            <div data-collection-target="items">
+                {% for media in form.medias %}
+                    {% include 'components/media.html.twig' with {form: media} %}
+                {% endfor %}
+            </div>
+            <button type="button" data-action="collection#choice">Add</button>
+        </div>
+        <button>Valider</button>
+    {{ form_end(form, {render_rest: false}) }}
+{% endblock %}
+

@@ -25,5 +25,6 @@ parameters:
                 - src/UseCase/Trick/ListComments.php
         -
             message: '#no value type specified#'
-            path: tests/Trick/CreateTest.php
-            count: 4
+            paths:
+                - tests/Trick/CreateTest.php
+                - tests/Trick/UpdateTest.php

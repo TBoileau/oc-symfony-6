@@ -72,6 +72,8 @@ final class MediaDto
         if (self::TYPE_IMAGE === $this->type) {
             $image = new Image();
 
+            $image->setFilename(null === $this->filename ? '' : $this->filename);
+
             /** @var UploadedFile $file */
             $file = $this->file;
             $image->setFile($file);

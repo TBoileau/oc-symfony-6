@@ -40,6 +40,7 @@ final class TrickType extends AbstractType
             ])
             ->add('coverFile', DropzoneType::class, [
                 'label' => 'Image de couverture',
+                'required' => false,
             ])
             ->add('medias', CollectionType::class, [
                 'entry_type' => MediaType::class,
