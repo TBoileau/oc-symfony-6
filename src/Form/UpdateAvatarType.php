@@ -17,6 +17,9 @@ final class UpdateAvatarType extends AbstractType
         $builder
             ->add('avatarFile', DropzoneType::class, [
                 'label' => 'Avatar',
+                'attr' => [
+                    'placeholder' => 'Glisser et déposer un fichier ou cliquer pour sélectionner un fichier',
+                ]
             ]);
     }
 
