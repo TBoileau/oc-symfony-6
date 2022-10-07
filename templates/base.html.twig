@@ -12,7 +12,8 @@
         {% endblock %}
     </head>
     <body>
-        {{ component('flash_messages') }}
+        {{ component('header') }}
         {% block body %}{% endblock %}
+        {{ component('flash_messages') }}
     </body>
 </html>

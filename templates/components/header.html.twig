@@ -1,0 +1,31 @@
+{% component navbar %}
+    {% block brand %}
+        <img src="{{ asset('build/images/logo.png') }}" alt="Snowtricks" height="24">
+    {% endblock %}
+
+    {% block nav %}
+        {{ component('nav_item', {label: 'Accueil', route: 'trick_list'}) }}
+        {% if is_granted('ROLE_USER') %}
+            {{ component('nav_item', {label: 'Ajouter une figure', route: 'trick_create'}) }}
+            {% component dropdown with {class: 'nav-item'} %}
+                {% block toggle %}
+                    {% if app.user.avatar is null %}
+                        <span class="fas fa-circle-user fa-xl"></span>
+                    {% else %}
+                        <img src="{{ asset('uploads/' ~ app.user.avatar) }}" class="user-avatar" alt="{{ app.user.nickname }}">
+                    {% endif %}
+                {% endblock %}
+
+                {% block items %}
+                    {{ component('dropdown_item', {label: 'Avatar', route: 'profile_update_avatar'}) }}
+                    {{ component('dropdown_item', {label: 'Mot de passe', route: 'profile_update_password'}) }}
+                    <li><hr class="dropdown-divider"></li>
+                    {{ component('dropdown_item', {label: 'Se déconnecter', route: 'security_logout'}) }}
+                {% endblock %}
+            {% endcomponent %}
+        {% else %}
+            {{ component('nav_item', {label: 'Se connecrer', route: 'security_login'}) }}
+            {{ component('nav_item', {label: 'S\'inscrire', route: 'security_register'}) }}
+        {% endif %}
+    {% endblock %}
+{% endcomponent %}

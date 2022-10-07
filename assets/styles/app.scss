@@ -1,1 +1,10 @@
 @import "~bootstrap/scss/bootstrap";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+
+.user-avatar {
+  height: 1.5em;
+  width: 1.5em;
+  object-fit: cover;
+  border-radius: 50%;
+}

@@ -50,7 +50,7 @@ final class SecurityController extends AbstractController
 
             $this->addFlash('success', 'Votre compte a bien été créé.');
 
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('trick_list');
         }
 
         return $this->renderForm('security/register.html.twig', ['form' => $form, 'user' => $user]);
@@ -78,7 +78,7 @@ final class SecurityController extends AbstractController
 
             $this->addFlash('success', 'Votre demande de réinitialisation de mot de passe a été enregistrée avec succès.');
 
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('trick_list');
         }
 
         return $this->renderForm('security/request_reset_password.html.twig', [

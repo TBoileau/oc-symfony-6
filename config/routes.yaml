@@ -7,7 +7,3 @@ api:
     type: attribute
     prefix: /api
     name_prefix: api_
-
-index:
-    path: /
-    controller: App\Controller\TrickController::list

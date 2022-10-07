@@ -26,6 +26,8 @@ final class TrickController extends AbstractController
     #[Route(name: 'list', methods: [Request::METHOD_GET])]
     public function list(): Response
     {
+        $this->addFlash('success', 'La figure a été ajoutée avec succès.');
+
         return $this->render('trick/list.html.twig');
     }
 
