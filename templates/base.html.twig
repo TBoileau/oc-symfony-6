@@ -13,7 +13,9 @@
     </head>
     <body>
         {{ component('header') }}
-        {% block body %}{% endblock %}
-        {{ component('flash_messages') }}
+        <main>
+            {% block body %}{% endblock %}
+            {{ component('flash_messages') }}
+        </main>
     </body>
 </html>

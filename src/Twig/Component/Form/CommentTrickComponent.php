@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Twig\Component;
+namespace App\Twig\Component\Form;
 
 use App\Doctrine\Entity\Comment;
 use App\Form\CommentType;
@@ -13,7 +13,7 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
-#[AsLiveComponent('comment_trick')]
+#[AsLiveComponent('comment_trick', template: 'components/form/comment_trick.html.twig')]
 final class CommentTrickComponent extends AbstractController
 {
     use DefaultActionTrait;

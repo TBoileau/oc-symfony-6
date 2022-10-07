@@ -8,3 +8,20 @@
   object-fit: cover;
   border-radius: 50%;
 }
+
+a {
+  text-decoration: none;
+  color: $primary;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  min-height: 100vh;
+
+  main {
+    flex-grow: 1;
+    display: flex;
+  }
+}

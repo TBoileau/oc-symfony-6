@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Twig\Component;
+namespace App\Twig\Component\Form;
 
 use App\Doctrine\Entity\User;
 use App\Form\UpdatePasswordType;
@@ -13,7 +13,7 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
-#[AsLiveComponent('update_password')]
+#[AsLiveComponent('update_password', template: 'components/form/update_password.html.twig')]
 final class UpdatePasswordComponent extends AbstractController
 {
     use DefaultActionTrait;

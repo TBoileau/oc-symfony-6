@@ -19,7 +19,7 @@ final class ResetPasswordRequestType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('user', EmailType::class, [
-            'label' => 'Email',
+            'label' => 'Adresse email',
             'empty_data' => '',
             'attr' => [
                 'placeholder' => 'Votre adresse email',
