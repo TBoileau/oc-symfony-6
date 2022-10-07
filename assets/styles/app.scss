@@ -10,6 +10,26 @@
   border-radius: 50%;
 }
 
+.ratio-1x1 {
+  aspect-ratio: 1/1;
+}
+
+img.ratio-1x1 {
+  object-fit: cover;
+}
+
+.overflow-x-scroll {
+  overflow-x: scroll;
+}
+
+.media {
+  margin-bottom: 1rem;
+}
+
+textarea {
+  resize: none;
+}
+
 a {
   text-decoration: none;
   color: $primary;

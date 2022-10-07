@@ -9,7 +9,6 @@ use App\Doctrine\Entity\Image;
 use App\Doctrine\Entity\Trick;
 use App\Doctrine\Entity\User;
 use App\Doctrine\Entity\Video;
-use App\Doctrine\Entity\VideoProvider;
 use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -59,17 +58,14 @@ final class TrickFixtures extends Fixture implements DependentFixtureInterface
                         ->addMedia(
                             (new Video())
                                 ->setUrl('https://www.youtube.com/watch?v=ScMzIvxBSi4')
-                                ->setProvider(VideoProvider::Youtube)
                         )
                         ->addMedia(
                             (new Video())
-                                ->setUrl('https://www.youtube.com/watch?v=ScMzIvxBSi4')
-                                ->setProvider(VideoProvider::Youtube)
+                                ->setUrl('https://www.dailymotion.com/video/x26p65s')
                         )
                         ->addMedia(
                             (new Video())
-                                ->setUrl('https://www.youtube.com/watch?v=ScMzIvxBSi4')
-                                ->setProvider(VideoProvider::Youtube)
+                                ->setUrl('https://vimeo.com/63655754')
                         );
 
                     $reflectionProperty = new ReflectionProperty(Trick::class, 'createdAt');

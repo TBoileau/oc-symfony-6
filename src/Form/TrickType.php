@@ -9,6 +9,7 @@ use App\Doctrine\Entity\Trick;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,7 +27,7 @@ final class TrickType extends AbstractType
                     'placeholder' => 'Nom de la figure',
                 ],
             ])
-            ->add('description', TextType::class, [
+            ->add('description', TextareaType::class, [
                 'label' => 'Description',
                 'empty_data' => '',
                 'attr' => [
@@ -41,13 +42,16 @@ final class TrickType extends AbstractType
             ->add('coverFile', DropzoneType::class, [
                 'label' => 'Image de couverture',
                 'required' => false,
+                'attr' => [
+                    'placeholder' => 'Glisser et déposer un fichier ou cliquer pour sélectionner un fichier',
+                ],
             ])
             ->add('medias', CollectionType::class, [
+                'label' => 'Médias',
                 'entry_type' => MediaType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
-                'label' => false,
             ]);
     }
 

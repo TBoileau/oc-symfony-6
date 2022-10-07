@@ -1,8 +1,8 @@
-<li {{ attributes.defaults({class: 'dropdown'}) }}>
-    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+<{{ tag }} class="dropdown {{ class }}">
+    <{{ toggle }} class="{{ toggleClass }} dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         {% block toggle %}{% endblock %}
-    </a>
+    </{{ toggle }}>
     <ul class="dropdown-menu dropdown-menu-{{ direction }}">
         {% block items %}{% endblock %}
     </ul>
-</li>
+</{{ tag }}>

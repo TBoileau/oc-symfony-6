@@ -7,7 +7,7 @@
         {{ component('nav_item', {label: 'Accueil', route: 'trick_list'}) }}
         {% if is_granted('ROLE_USER') %}
             {{ component('nav_item', {label: 'Ajouter une figure', route: 'trick_create'}) }}
-            {% component dropdown with {class: 'nav-item'} %}
+            {% component dropdown with {class: 'nav-item', tag: 'li', toggle: 'a', toggleClass: 'nav-link'} %}
                 {% block toggle %}
                     {% if app.user.avatar is null %}
                         <span class="fas fa-circle-user fa-xl"></span>

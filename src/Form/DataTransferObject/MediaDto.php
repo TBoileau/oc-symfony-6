@@ -7,7 +7,6 @@ namespace App\Form\DataTransferObject;
 use App\Doctrine\Entity\Image;
 use App\Doctrine\Entity\Media;
 use App\Doctrine\Entity\Video;
-use App\Doctrine\Entity\VideoProvider;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -29,7 +28,7 @@ final class MediaDto
 
     public ?string $url = null;
 
-    public ?VideoProvider $provider = null;
+    public ?Media $original = null;
 
     private static function create(
         string $type,
@@ -37,15 +36,15 @@ final class MediaDto
         ?UploadedFile $file = null,
         ?string $alt = null,
         ?string $url = null,
-        ?VideoProvider $provider = null
+        ?Media $original = null
     ): MediaDto {
         $media = new self();
+        $media->original = $original;
         $media->type = $type;
         $media->filename = $filename;
         $media->file = $file;
         $media->alt = $alt;
         $media->url = $url;
-        $media->provider = $provider;
 
         return $media;
     }
@@ -57,12 +56,13 @@ final class MediaDto
             Image::class => self::create(
                 type: self::TYPE_IMAGE,
                 filename: $media->getFilename(),
-                alt: $media->getAlt()
+                alt: $media->getAlt(),
+                original: $media
             ),
             Video::class => self::create(
                 type: self::TYPE_VIDEO,
                 url: $media->getUrl(),
-                provider: $media->getProvider()
+                original: $media
             ),
         };
     }
@@ -70,7 +70,7 @@ final class MediaDto
     public function toEntity(): Media
     {
         if (self::TYPE_IMAGE === $this->type) {
-            $image = new Image();
+            $image = $this->original instanceof Image ? $this->original : new Image();
 
             $image->setFilename(null === $this->filename ? '' : $this->filename);
 
@@ -85,15 +85,11 @@ final class MediaDto
             return $image;
         }
 
-        $video = new Video();
+        $video = $this->original instanceof Video ? $this->original : new Video();
 
         /** @var string $url */
         $url = $this->url;
         $video->setUrl($url);
-
-        /** @var VideoProvider $provider */
-        $provider = $this->provider;
-        $video->setProvider($provider);
 
         return $video;
     }

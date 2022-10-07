@@ -17,9 +17,6 @@ class Video extends Media
     #[NotBlank]
     private string $url;
 
-    #[Column]
-    private VideoProvider $provider;
-
     public function getUrl(): string
     {
         return $this->url;
@@ -34,21 +31,14 @@ class Video extends Media
 
     public function getProvider(): VideoProvider
     {
-        return $this->provider;
-    }
-
-    public function setProvider(VideoProvider $provider): self
-    {
-        $this->provider = $provider;
-
-        return $this;
+        return VideoProvider::fromUrl($this->url);
     }
 
     #[Callback]
     public function validate(ExecutionContextInterface $context): void
     {
-        if (!$this->provider->check($this->url)) {
-            $context->buildViolation('L\'url de la vidéo ne correspond pas au fournisseur.')
+        if (!VideoProvider::isValid($this->url)) {
+            $context->buildViolation('L\'url de la vidéo ne correspond à aucun fournisseur.')
                 ->atPath('url')
                 ->addViolation();
         }

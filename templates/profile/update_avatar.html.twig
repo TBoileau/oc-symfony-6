@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
     <div class="container flex-grow-1">
         <div class="row justify-content-center align-items-center h-100">
             <div class="col-12 col-md-9 col-lg-6 col-xl-5">
@@ -10,15 +9,28 @@
                         <h1 class="h3 fw-bold">Modifier mon avatar</h1>
                         {{ form_start(form, {attr: {class: 'mt-5'}}) }}
                             <div class="mb-3">
-                                {{ form_label(form.avatarFile) }}
                                 <div class="row align-items-stretch">
-                                    {% if user.avatar is not null %}
-                                        <div class="col">
-                                            <img src="{{ asset('uploads/' ~ user.avatar) }}" width="100%" class="rounded border" alt="{{ user.nickname }}">
+                                    <div class="col-12 mb-3 col-sm-6 mb-sm-0">
+                                        <label for="" class="form-label">Avatar actuel</label>
+                                        <div class="ratio-1x1">
+                                            {% if user.avatar is not null %}
+                                                <img src="{{ asset('uploads/' ~ user.avatar) }}" width="100%" class="rounded border" alt="{{ user.nickname }}">
+                                            {% else %}
+                                                {% component alert with {type: 'info', class: 'h-100 d-flex align-items-center text-center'} %}
+                                                    {% block body %}
+                                                        Vous n'avez pas encore d'avatar.
+                                                    {% endblock %}
+                                                {% endcomponent %}
+                                            {% endif %}
                                         </div>
-                                    {% endif %}
-                                    <div class="col">
-                                        {{ form_widget(form.avatarFile) }}
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="mb-3">
+                                            {{ form_label(form.avatarFile) }}
+                                            <div class="ratio-1x1">
+                                                {{ form_widget(form.avatarFile) }}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

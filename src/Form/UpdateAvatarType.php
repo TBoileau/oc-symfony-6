@@ -19,7 +19,7 @@ final class UpdateAvatarType extends AbstractType
                 'label' => 'Avatar',
                 'attr' => [
                     'placeholder' => 'Glisser et déposer un fichier ou cliquer pour sélectionner un fichier',
-                ]
+                ],
             ]);
     }
 

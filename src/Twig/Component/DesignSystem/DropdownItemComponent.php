@@ -20,7 +20,7 @@ final class DropdownItemComponent
 
     public string $label;
 
-    public string $route;
+    public ?string $route = null;
 
     public function isActive(): bool
     {
