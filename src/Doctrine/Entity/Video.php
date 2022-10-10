@@ -17,6 +17,11 @@ class Video extends Media
     #[NotBlank]
     private string $url;
 
+    public function type(): string
+    {
+        return 'video';
+    }
+
     public function getUrl(): string
     {
         return $this->url;

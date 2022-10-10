@@ -3,5 +3,5 @@
 {% elseif video.provider.name =='Dailymotion' %}
     <iframe width="100%" height="100%" class="rounded bg-black" frameborder="0" type="text/html" src="https://www.dailymotion.com/embed/video/{{ video.provider.id(video.url) }}" allowfullscreen > </iframe>
 {% elseif video.provider.name =='Vimeo' %}
-    <iframe width="100%" height="100%" class="bg-black" src="https://player.vimeo.com/video/{{ video.provider.id(video.url) }}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="100%" height="100%" class="rounded bg-black" src="https://player.vimeo.com/video/{{ video.provider.id(video.url) }}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
 {% endif %}

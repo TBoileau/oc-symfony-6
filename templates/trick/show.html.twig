@@ -1,13 +1,81 @@
 {% extends 'base.html.twig' %}
 
+{% block body_class %}{% endblock %}
+
 {% block body %}
-    <h1>{{ trick.name }}</h1>
-    {% if is_granted('ROLE_USER') %}
-        {{ component('comment_trick', {comment: comment.id is null ? null : comment, form: form}) }}
-    {% endif %}
-    <div data-controller="comments" data-trick-id="{{ trick.id }}">
-        <div data-comments-target="list"></div>
-        <button data-action="comments#next" data-comments-target="loadMore">Charger plus</button>
+    <div class="container-fluid px-0">
+        <div class="row">
+            <div class="col-12">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                    <div class="carousel-indicators overflow-hidden w-100 position-absolute bottom-0 left-0">
+                        <div class="flex gap-3 w-100 flex-nowrap overflow-x-scroll" style="height: 50px;">
+                            {% for media in trick.medias %}
+                                <a href="#" class="d-block {{ loop.first ? 'active'}} ratio-16x9 overflow-hidden" aria-current="{{ loop.first ? 'true' : 'false' }}" aria-label="Média {{ loop.index }}" data-bs-slide-to="{{ loop.index }}">
+                                    {% if media.type == 'image' %}
+                                        <img src="{{ asset('uploads/' ~ media.filename) }}" class="d-block object-fit-cover h-100 w-100" alt="{{ media.alt }}">
+                                    {% else %}
+                                        {{ component('video', {video: media}) }}
+                                    {% endif %}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="carousel-inner">
+                        {% for media in trick.medias %}
+                            <div class="carousel-item {{ loop.first ? 'active'}} ratio-16x9">
+                                {% if media.type == 'image' %}
+                                    <img src="{{ asset('uploads/' ~ media.filename) }}" class="d-block object-fit-cover h-100 w-100" alt="{{ media.alt }}">
+                                {% else %}
+                                    {{ component('video', {video: media}) }}
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card border-0 shadow">
+                    <div class="card-body p-5">
+                        <h1 class="h3 fw-bold text-uppercase mb-3">{{ trick.name }}</h1>
+                        <div class="d-flex gap-3 text-muted mb-4">
+                            <div>
+                                <span class="fas fa-user"></span> {{ trick.user.nickname }}
+                            </div>
+                            <div>
+                                <span class="fas fa-calendar"></span> {{ trick.createdAt|format_date('medium', locale='FR') }}
+                            </div>
+                            <div>
+                                <span class="fas fa-tag"></span> {{ trick.category.name }}
+                            </div>
+                        </div>
+                        <p>
+                            {{ trick.description|nl2br }}
+                        </p>
+                    </div>
+                </div>
+
+
+                {% if is_granted('ROLE_USER') %}
+                    {{ component('comment_trick', {comment: comment.id is null ? null : comment, form: form}) }}
+                {% endif %}
+                <div data-controller="comments" data-trick-id="{{ trick.id }}">
+                    <div data-comments-target="list"></div>
+                    <button data-action="comments#next" data-comments-target="loadMore">Charger plus</button>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 

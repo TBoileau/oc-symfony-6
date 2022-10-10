@@ -14,6 +14,14 @@
   aspect-ratio: 1/1;
 }
 
+.ratio-16x9 {
+  aspect-ratio: 16/9;
+}
+
+.object-fit-cover {
+  object-fit: cover;
+}
+
 img.ratio-1x1 {
   object-fit: cover;
 }
@@ -38,11 +46,11 @@ a {
 body {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
   min-height: 100vh;
 
   main {
     flex-grow: 1;
     display: flex;
+    flex-direction: column;
   }
 }

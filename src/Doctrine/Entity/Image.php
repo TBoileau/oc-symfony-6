@@ -25,6 +25,11 @@ class Image extends Media
     #[NotBlank]
     private string $alt;
 
+    public function type(): string
+    {
+        return 'image';
+    }
+
     public function getFilename(): string
     {
         return $this->filename;

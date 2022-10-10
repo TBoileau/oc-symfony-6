@@ -27,6 +27,8 @@ abstract class Media
     #[ManyToOne(inversedBy: 'medias')]
     protected ?Trick $trick = null;
 
+    abstract public function type(): string;
+
     public function getId(): ?int
     {
         return $this->id;
