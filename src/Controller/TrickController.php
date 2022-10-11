@@ -60,7 +60,7 @@ final class TrickController extends AbstractController
     }
 
     #[Route('/{slug}/update', name: 'update', methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    #[IsGranted('ROLE_USER')]
+    #[IsGranted(TrickVoter::UPDATE, subject: 'trick')]
     public function update(Trick $trick, Request $request, UpdateTrickInterface $updateTrick): Response
     {
         $form = $this->createForm(TrickType::class, $trick)->handleRequest($request);

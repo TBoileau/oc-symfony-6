@@ -1,4 +1,11 @@
 import {Controller} from '@hotwired/stimulus';
+import {template} from 'lodash';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/fr';
+// eslint-disable-next-line max-len
+import userCircle from '@fortawesome/fontawesome-free/svgs/solid/circle-user.svg';
+import nl2br from 'nl2br';
 
 /**
  * @class CommentsController
@@ -7,7 +14,7 @@ export default class extends Controller {
   /**
    * @type {string[]}
    */
-  static targets = ['list', 'loadMore'];
+  static targets = ['list', 'loadMore', 'template'];
 
   /**
    * @var {
@@ -43,6 +50,8 @@ export default class extends Controller {
    * Connect
    */
   connect() {
+    dayjs.extend(relativeTime).locale('fr-FR');
+    this.template = template(this.templateTarget.innerHTML);
     this.next();
   }
 
@@ -63,9 +72,12 @@ export default class extends Controller {
    */
   load() {
     this.data._embedded.comments.forEach((comment) => {
-      const commentElement = document.createElement('div');
-      commentElement.innerHTML = comment.content;
-      this.listTarget.appendChild(commentElement);
+      comment.createdAt = dayjs(comment.createdAt).fromNow();
+      comment.content = nl2br(comment.content);
+      comment.user.avatar = comment.user.avatar !== null ?
+        `/uploads/${comment.user.avatar}` :
+        userCircle;
+      this.listTarget.innerHTML += this.template(comment);
     });
 
     if (!this.data._links.next) {

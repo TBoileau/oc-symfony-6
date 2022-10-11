@@ -45,7 +45,7 @@ final class ResetPasswordTest extends WebTestCase
             Request::METHOD_GET,
             sprintf('/reset-password/%s', $resetPasswordRequest->getToken())
         );
-        $client->submitForm('Modifier', self::createFormData());
+        $client->submitForm('Réinitialiser', self::createFormData());
 
         /** @var User $user */
         $user = $entityManager->getRepository(User::class)->findOneBy(['email' => 'user+1@email.com']);
@@ -128,7 +128,7 @@ final class ResetPasswordTest extends WebTestCase
             Request::METHOD_GET,
             sprintf('/reset-password/%s', $resetPasswordRequest->getToken())
         );
-        $client->submitForm('Modifier', $formData);
+        $client->submitForm('Réinitialiser', $formData);
         self::assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 

@@ -1,10 +1,51 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ form_start(form) }}
-        {{ form_row(form.avatarFile) }}
+    <div class="container flex-grow-1">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-9 col-lg-6 col-xl-5">
+                <div class="card border-0 shadow">
+                    <div class="card-body p-5">
+                        <h1 class="h3 fw-bold">Modifier mon avatar</h1>
+                        {{ form_start(form, {attr: {class: 'mt-5'}}) }}
+                            <div class="mb-3">
+                                <div class="row align-items-stretch">
+                                    <div class="col-12 mb-3 col-sm-6 mb-sm-0">
+                                        <label for="" class="form-label">Avatar actuel</label>
+                                        <div class="ratio-1x1">
+                                            {% if user.avatar is not null %}
+                                                <img src="{{ asset('uploads/' ~ user.avatar) }}" width="100%" class="rounded border" alt="{{ user.nickname }}">
+                                            {% else %}
+                                                {% component alert with {type: 'info', class: 'h-100 d-flex align-items-center text-center'} %}
+                                                    {% block body %}
+                                                        Vous n'avez pas encore d'avatar.
+                                                    {% endblock %}
+                                                {% endcomponent %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="mb-3">
+                                            {{ form_label(form.avatarFile) }}
+                                            <div class="ratio-1x1">
+                                                {{ form_widget(form.avatarFile) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-        <button>Modifier</button>
-    {{ form_end(form) }}
+                            <div class="d-flex flex-column gap-2 align-items-center">
+                                <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                                    <i class="fa-solid fa-edit me-2"></i>
+                                    Modifier
+                                </button>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 

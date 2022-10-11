@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Trick;
 
 use App\Doctrine\Entity\User;
-use App\Doctrine\Entity\VideoProvider;
 use App\Tests\WebTestCaseHelperTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -44,7 +43,6 @@ final class CreateTest extends WebTestCase
             medias: [
                 [
                     'type' => 'video',
-                    'provider' => VideoProvider::Youtube->value,
                     'url' => 'https://www.youtube.com/watch?v=ScMzIvxBSi4',
                 ],
                 [
@@ -107,22 +105,11 @@ final class CreateTest extends WebTestCase
         yield 'blank name' => [self::createFormData(name: '')];
         yield 'blank description' => [self::createFormData(description: '')];
         yield 'no cover' => [self::createFormData()];
-        yield 'wrong provider' => [self::createFormData(
-            coverFile: self::fakeImage(),
-            medias: [
-                [
-                    'type' => 'video',
-                    'provider' => VideoProvider::Dailymotion->value,
-                    'url' => 'https://www.youtube.com/watch?v=ScMzIvxBSi4',
-                ],
-            ]
-        )];
         yield 'wrong url' => [self::createFormData(
             coverFile: self::fakeImage(),
             medias: [
                 [
                     'type' => 'video',
-                    'provider' => VideoProvider::Youtube->value,
                     'url' => 'https://www.fail.com',
                 ],
             ]

@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Doctrine\Entity\VideoProvider;
 use App\Form\DataTransferObject\MediaDto;
 use App\Form\DataTransformer\MediaTransformer;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -29,6 +27,9 @@ final class MediaType extends AbstractType
             ->add('file', DropzoneType::class, [
                 'label' => 'Image',
                 'required' => false,
+                'attr' => [
+                    'placeholder' => 'Glisser et déposer un fichier ou cliquer pour sélectionner un fichier',
+                ],
             ])
             ->add('alt', TextType::class, [
                 'label' => 'Texte alternatif',
@@ -39,13 +40,9 @@ final class MediaType extends AbstractType
                 ],
             ])
             ->add('url', UrlType::class, [
-                'label' => 'Vidéo',
+                'label' => 'Url de la vidéo',
                 'empty_data' => '',
                 'required' => false,
-            ])
-            ->add('provider', EnumType::class, [
-                'label' => 'Fournisseur',
-                'class' => VideoProvider::class,
             ])
             ->addModelTransformer($this->mediaTransformer);
     }

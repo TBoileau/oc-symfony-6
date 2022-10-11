@@ -36,10 +36,6 @@ final class UpdateTrick implements UpdateTrickInterface
                     $media->setFilename(sprintf('%s.%s', Uuid::v4(), $imageFile->guessClientExtension()));
                     $imageFile->move($this->uploadsDir, $media->getFilename());
                 }
-
-                if ('' === $media->getFilename()) {
-                    $trick->removeMedia($media);
-                }
             }
         }
 

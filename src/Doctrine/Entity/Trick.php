@@ -35,7 +35,7 @@ class Trick
     #[Column]
     #[Groups(['trick:read'])]
     #[NotBlank]
-    private string $name;
+    private string $name = '';
 
     #[Column(type: Types::TEXT)]
     #[NotBlank]
@@ -59,7 +59,7 @@ class Trick
 
     #[Column]
     #[Groups(['trick:read'])]
-    private string $cover;
+    private string $cover = '';
 
     #[NotNull(groups: ['cover'])]
     #[ImageConstraint(groups: ['cover'])]

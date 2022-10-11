@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Twig\Component;
+namespace App\Twig\Component\DesignSystem;
 
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
-#[AsTwigComponent('modal')]
+#[AsTwigComponent('modal', template: 'components/design_system/modal.html.twig')]
 final class ModalComponent
 {
     public string $id;

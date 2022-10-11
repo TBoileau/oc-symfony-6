@@ -1,6 +1,7 @@
 parameters:
   mailer.sender: 'noreply@snowtricks.com'
   trick.delete.by_owner_only: true
+  trick.update.by_owner_only: false
   uploads_dir: '%kernel.project_dir%/public/uploads'
 
 services:
@@ -9,6 +10,7 @@ services:
     autoconfigure: true
     bind:
       bool $deleteTrickByOwnerOnly: '%trick.delete.by_owner_only%'
+      bool $updateTrickByOwnerOnly: '%trick.update.by_owner_only%'
       string $uploadsDir: '%uploads_dir%'
 
   _instanceof:

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Twig\Component;
+namespace App\Twig\Component\Form;
 
 use App\Doctrine\Entity\ResetPasswordRequest;
 use App\Form\ResetPasswordRequestType;
@@ -13,7 +13,7 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
-#[AsLiveComponent('request_reset_password')]
+#[AsLiveComponent('request_reset_password', template: 'components/form/request_reset_password.html.twig')]
 final class RequestResetPasswordComponent extends AbstractController
 {
     use DefaultActionTrait;

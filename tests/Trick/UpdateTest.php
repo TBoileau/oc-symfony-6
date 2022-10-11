@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Trick;
 
 use App\Doctrine\Entity\User;
-use App\Doctrine\Entity\VideoProvider;
 use App\Tests\WebTestCaseHelperTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -44,17 +43,12 @@ final class UpdateTest extends WebTestCase
             medias: [
                 [
                     'type' => 'video',
-                    'provider' => VideoProvider::Youtube->value,
                     'url' => 'https://www.youtube.com/watch?v=ScMzIvxBSi4',
                 ],
                 [
                     'type' => 'image',
                     'alt' => 'image',
                     'file' => self::fakeImage(),
-                ],
-                [
-                    'type' => 'image',
-                    'alt' => 'image',
                 ],
             ]
         );
@@ -110,33 +104,6 @@ final class UpdateTest extends WebTestCase
     {
         yield 'blank name' => [self::createFormData(name: '')];
         yield 'blank description' => [self::createFormData(description: '')];
-        yield 'wrong provider' => [self::createFormData(
-            medias: [
-                [
-                    'type' => 'video',
-                    'provider' => VideoProvider::Dailymotion->value,
-                    'url' => 'https://www.youtube.com/watch?v=ScMzIvxBSi4',
-                ],
-            ]
-        )];
-        yield 'wrong url' => [self::createFormData(
-            medias: [
-                [
-                    'type' => 'video',
-                    'provider' => VideoProvider::Youtube->value,
-                    'url' => 'https://www.fail.com',
-                ],
-            ]
-        )];
-        yield 'blank alt' => [self::createFormData(
-            medias: [
-                [
-                    'type' => 'image',
-                    'alt' => '',
-                    'file' => self::fakeImage(),
-                ],
-            ]
-        )];
     }
 
     private static function createFormData(

@@ -11,10 +11,10 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-use function sprintf;
-
 final class CommentFixtures extends Fixture implements DependentFixtureInterface
 {
+    use FakerTrait;
+
     public function load(ObjectManager $manager): void
     {
         /** @var array<array-key, Trick> $tricks */
@@ -27,11 +27,14 @@ final class CommentFixtures extends Fixture implements DependentFixtureInterface
 
         foreach ($tricks as $trick) {
             foreach ($users as $user) {
+                /** @var string $content */
+                $content = $this->faker()->paragraphs(3, true);
+
                 $manager->persist(
                     (new Comment())
                         ->setUser($user)
                         ->setTrick($trick)
-                        ->setContent(sprintf('Comment %d', $index))
+                        ->setContent($content)
                 );
 
                 ++$index;
