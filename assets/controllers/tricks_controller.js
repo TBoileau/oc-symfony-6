@@ -1,4 +1,8 @@
 import {Controller} from '@hotwired/stimulus';
+import {template} from 'lodash';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/fr';
 
 /**
  * @class TricksController
@@ -7,7 +11,7 @@ export default class extends Controller {
   /**
    * @type {string[]}
    */
-  static targets = ['list', 'loadMore'];
+  static targets = ['list', 'loadMore', 'template'];
 
   /**
    * @var {
@@ -38,6 +42,13 @@ export default class extends Controller {
   /**
    * @type {boolean}
    */
+  updateTrickByOwnerOnly = parseInt(
+      this.element.dataset.updateTrickByOwnerOnly,
+  ) === 1;
+
+  /**
+   * @type {boolean}
+   */
   deleteTrickByOwnerOnly = parseInt(
       this.element.dataset.deleteTrickByOwnerOnly,
   ) === 1;
@@ -53,6 +64,8 @@ export default class extends Controller {
    * Connect
    */
   connect() {
+    dayjs.extend(relativeTime).locale('fr-FR');
+    this.template = template(this.templateTarget.innerHTML);
     this.next();
   }
 
@@ -73,24 +86,12 @@ export default class extends Controller {
    */
   load() {
     this.data._embedded.tricks.forEach((trick) => {
-      const trickElement = document.createElement('div');
-
-      const showElement = document.createElement('a');
-      showElement.innerHTML = trick.name;
-      showElement.href = `/${trick.slug}`;
-      trickElement.appendChild(showElement);
-
-      if (
-        this.userId !== null &&
-        (!this.deleteTrickByOwnerOnly || this.userId === trick.user.id)
-      ) {
-        const deleteElement = document.createElement('a');
-        deleteElement.innerHTML = 'Supprimer';
-        deleteElement.href = `/${trick.slug}/delete`;
-        trickElement.appendChild(deleteElement);
-      }
-
-      this.listTarget.appendChild(trickElement);
+      trick.createdAt = dayjs(trick.createdAt).fromNow();
+      trick.canBeUpdated = this.userId !== null &&
+        (!this.updateTrickByOwnerOnly || this.userId === trick.user.id);
+      trick.canBeDeleted = this.userId !== null &&
+        (!this.deleteTrickByOwnerOnly || this.userId === trick.user.id);
+      this.listTarget.innerHTML += this.template(trick);
     });
 
     if (!this.data._links.next) {

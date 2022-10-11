@@ -54,3 +54,11 @@ body {
     flex-direction: column;
   }
 }
+
+.card-options {
+  position: absolute;
+  top: 1rem;
+  right: calc(var(--bs-gutter-x) * 0.5 + 1rem);
+  display: flex;
+  gap: 0.25rem;
+}
