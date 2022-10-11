@@ -1,0 +1,14 @@
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle
+actor Utilisateur
+database MySQL
+rectangle Profil {
+    Utilisateur -- (Modifier son\nmot de passe)
+    Utilisateur -- (Modifier son\navatar)
+}
+
+Profil ..> MySQL
+
+@enduml

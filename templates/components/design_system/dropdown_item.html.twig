@@ -1,0 +1,5 @@
+{% if route is not null %}
+    <li><a class="dropdown-item {{ this.active ? 'active' }}" href="{{ path(route) }}" {{ attributes }}>{{ label }}</a></li>
+{% else %}
+    <li><a class="dropdown-item" href="#" {{ attributes }}>{{ label }}</a></li>
+{% endif %}

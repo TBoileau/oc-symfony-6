@@ -1,0 +1,85 @@
+@startuml
+
+package "Snowtricks" {
+    class User {
+        - int id
+        - string email
+        - string password
+        - string name
+        - ?string avatar
+    }
+
+    class Trick {
+        - int id
+        - string name
+        - string description
+        - string slug
+        - DateTimeInterface createdAt
+        - DateTimeInterface updatedAt
+        - User user
+        - Image cover
+    }
+
+    User "1" -- "0..*" Trick
+
+    class Category {
+        - int id
+        - string name
+    }
+
+    Category "1" -- "0..*" Trick
+
+    class Comment {
+        - int id
+        - string content
+        - DateTimeInterface createdAt
+        - User user
+        - Trick trick
+    }
+
+    User "1" -- "0..*" Comment
+    Trick "1" -- "0..*" Comment
+
+    abstract class Media {
+        - int id
+        - ?Trick trick
+    }
+
+    class Image extends Media {
+        - string filename
+        - string alt
+    }
+
+    class Video extends Media {
+        - string url
+        - VideoProvider provider
+    }
+
+    enum VideoProvider {
+        Youtube
+        DailyMotion
+        Vimeo
+    }
+
+    Trick "1" -- "0..*" Media
+    Trick "1" -- "0..1" Image
+    Video -- VideoProvider
+}
+
+package "Symfony" {
+    interface UserInterface {
+        + array<array-key, string> getRoles()
+        + void eraseCredentials()
+        + string getUserIdentifier()
+    }
+
+    interface PasswordAuthenticatedUserInterface {
+        + ?string getPassword()
+    }
+}
+
+
+User --|> UserInterface
+User --|> PasswordAuthenticatedUserInterface
+
+@enduml

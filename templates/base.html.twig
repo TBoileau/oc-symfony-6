@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Snowtricks{% endblock %}</title>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body class="{% block body_class %}gap-4{% endblock %}">
+        {{ component('header') }}
+        <main>
+            {% block body %}{% endblock %}
+            {{ component('flash_messages') }}
+        </main>
+    </body>
+</html>

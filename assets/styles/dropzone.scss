@@ -1,0 +1,25 @@
+.dropzone-container {
+  border: $border-width solid $border-color !important;
+  border-radius: $border-radius !important;
+  height: 100%;
+  padding: 0 !important;
+  overflow: hidden;
+
+  .dropzone-preview {
+    height: 100%;
+    width: 100%;
+
+    .dropzone-preview-image {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      object-fit: cover;
+      max-width: unset;
+      flex-basis: unset;
+    }
+
+    .dropzone-preview-filename {
+      display: none;
+    }
+  }
+}

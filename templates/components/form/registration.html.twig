@@ -1,0 +1,20 @@
+<div {{ attributes }}>
+    {{ form_start(form) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.nickname) }}
+    {{ form_row(form.plainPassword) }}
+
+    <div class="d-flex flex-column gap-2 align-items-center">
+        <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+            <i class="fa-solid fa-arrow-up-right-from-square me-2"></i>
+            S'inscrire
+        </button>
+        <p>
+            Déjà inscrit ? <a class="fw-bold" href="{{ path('security_login') }}">
+                Connectez-vous
+                <span class="fa-solid fa-right-to-bracket"></span>
+            </a>
+        </p>
+    </div>
+    {{ form_end(form) }}
+</div>

@@ -1,0 +1,22 @@
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle
+actor Utilisateur
+actor Visiteur
+database MySQL
+
+Utilisateur -|> Visiteur
+
+rectangle Figures {
+    Utilisateur -- (Ajouter une figure)
+    Utilisateur -- (Supprimer une figure)
+    Utilisateur -- (Modifier une figure)
+    Utilisateur -- (Commenter une figure)
+    Visiteur -- (Afficher une figure)
+    Visiteur -- (Afficher la liste des figures)
+}
+
+Figures ..> MySQL
+
+@enduml
