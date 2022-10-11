@@ -10,17 +10,37 @@ db-name ?= oc-symfony-6
 db-version ?= 8.0
 db-charset ?= utf8mb4
 
+sf-start: ## Démarrer le serveur Symfony
+	symfony server:start
+.PHONY: sf-start
+
+sf-stop: ## Stopper le serveur Symfony
+	symfony server:stop
+.PHONY: sf-start
+
+sf-cc: ## Vider le cache Symfony
+	$(DISABLE_XDEBUG) symfony console cache:clear
+.PHONY: sf-cc
+
 composer: ## Installation des dépendances de composer.json
 	composer install
+.PHONY: composer
 
 yarn: ## Installation des dépendances de package.json
 	yarn install
+.PHONY: yarn
+
+yarn-watch: ## Compilation des assets en mode dev
+	yarn run watch
+.PHONY: yarn-watch
 
 yarn-dev: ## Build des assets pour l'environnement de développement
 	yarn run dev
+.PHONY: yarn-dev
 
 yarn-build: ## Build des assets pour l'environnement de production
 	yarn run build
+.PHONY: yarn-build
 
 install: ## Installation du projet
 	make composer

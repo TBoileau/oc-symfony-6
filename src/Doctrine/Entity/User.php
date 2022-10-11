@@ -57,6 +57,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Uuid $registrationToken = null;
 
     #[Column(nullable: true)]
+    #[Groups(['comment:read'])]
     private ?string $avatar = null;
 
     #[NotNull(groups: ['avatar'])]
